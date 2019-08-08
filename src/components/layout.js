@@ -1,12 +1,11 @@
 import React from "react"
 
-import { rhythm, scale } from "../utils/typography"
-import Menu from "../components/menu"
+import { rhythm } from "../utils/typography"
+import { Menu } from "../components/menu"
 
 class Layout extends React.Component {
   render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
+    const { children } = this.props
 
     return (
       <div
