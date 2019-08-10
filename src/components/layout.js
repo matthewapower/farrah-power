@@ -1,7 +1,7 @@
 import React from "react"
 
 import { rhythm } from "../utils/typography"
-import { Menu } from "../components/menu"
+import Menu from "../components/menu"
 
 class Layout extends React.Component {
   render() {

@@ -1,5 +1,5 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link } from "gatsby"
 import styled from "styled-components"
 
 const Container = styled.ul`
@@ -33,42 +33,23 @@ const Item = styled.li`
   }
 `
 
-const Menu = ({data}) => {
-  <Container>
-    <Item><Link to="/">Farrah Power</Link></Item>
-    <Item className="show-trigger">
-      Work
-      <ul>
-        </ul> 
-         { {data.allMarkdownRemark.edges.map(post => (
-          <li key={post.node.id}><Link to={post.node.fields.slug}>{post.node.frontmatter.title}</Link></li>
-         ))} }
-
-      </ul>
-    </Item>
-    <Item><Link to="/about">About</Link></Item>
-    <Item><Link to="/contact">Contact</Link></Item>
-    <Item>Maui 78 F</Item>
-  </Container>
-}
-
-export const menuQuery = graphql`
-  query menuQuery {
-    allMarkdownRemark {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            title
-          }
-          id
-        }
-      }
-    }
+class Menu extends React.Component {
+  render() {
+    return(
+      <Container>
+        <Item><Link to="/">Farrah Power</Link></Item>
+        <Item>
+          Work
+          <ul> 
+            <li><Link to="#">link</Link></li>
+          </ul>
+        </Item>
+        <Item><Link to="/about">About</Link></Item>
+        <Item><Link to="/contact">Contact</Link></Item>
+        <Item>Maui 78 F</Item>
+      </Container>
+    )
   }
-`
+}
 
 export default Menu
