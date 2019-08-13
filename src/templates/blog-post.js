@@ -5,6 +5,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import { Helmet } from "react-helmet"
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -33,10 +34,13 @@ class BlogPostTemplate extends React.Component {
             marginBottom: rhythm(1),
           }}
         >
-          {post.frontmatter.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        
+        <Helmet>
+          <script type="text/javascript" src={post.frontmatter.embedScript}></script>
+        </Helmet>
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -92,6 +96,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         embed
+        embedScript
       }
     }
   }
