@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm } from "../utils/typography"
+import Draggable from 'react-draggable';
 
 import home1 from "../../content/assets/home-1.png"
 import home2 from "../../content/assets/home-2.png"
@@ -17,26 +18,45 @@ import home9 from "../../content/assets/home-9.png"
 import home10 from "../../content/assets/home-10.png"
 import home11 from "../../content/assets/home-11.png"
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+
 class MoodBoard extends React.Component {
+  constructor() {
+    super()
+    this.cW = 0;
+    this.cH = 0;
+  }
+
+  componentDidMount() {
+    this.cW = this.refs.draggableContainer.offsetWidth;
+    this.cH = this.refs.draggableContainer.offsetWidth - 300;
+  }
+
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
+    const images = [home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, home11]
 
+    
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="All posts" />
-        <img src={home1} alt="#" />
-        <img src={home2} alt="#" />
-        <img src={home3} alt="#" />
-        <img src={home4} alt="#" />
-        <img src={home5} alt="#" />
-        <img src={home6} alt="#" />
-        <img src={home7} alt="#" />
-        <img src={home8} alt="#" />
-        <img src={home9} alt="#" />
-        <img src={home10} alt="#" />
-        <img src={home11} alt="#" />
+        <div ref="draggableContainer" style={{minHeight: '100vh', width: '100vw'}}>
+          {images.map((src) => {
+            let x = getRandomInt(1000);
+            let y = getRandomInt(1000);
+            return(
+              <Draggable key={src} bounds="parent">
+                <img src={src} alt="#" draggable="false" style={{position: 'absolute', top: x + 'px', right: y + 'px', maxWidth: '300px'}}/>
+              </Draggable>
+            )
+          })}
+        </div>
+        
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
@@ -67,7 +87,7 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark {
       edges {
         node {
           fields {
