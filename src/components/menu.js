@@ -99,12 +99,13 @@ class Menu extends React.Component {
     this.state = {
       collapsed: true,
       navHidden: false,
-      scrollY: window.scrollY
+      scrollY: 0
     };
   }
 
   componentDidMount() {
     if (window.innerWidth > 768) {
+      this.state.scrollY = window.scrollY
       window.addEventListener('scroll', this.handleScroll);
     }
   }
