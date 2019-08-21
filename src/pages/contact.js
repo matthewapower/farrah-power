@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+// import tf from "https://embed.typeform.com/embed.js"
 
 class ContactPage extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class ContactPage extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="Contact Farrah" />
-        <h1>Contact Me!</h1>
+        <iframe id="typeform-full" style={{height: `90vh`}} width="100%" frameborder="0" src="https://farrahpower.typeform.com/to/D9ELVQ"></iframe> 
       </Layout>
     )
   }
