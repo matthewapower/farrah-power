@@ -165,7 +165,7 @@ class Menu extends React.Component {
           <Item col>
             <div onClick={this.toggleDrawer}>Work</div> 
             <SubList collapsed={dropDownState}> 
-              <SubLink><Link to="/joshua-tree">Joshua Tree Elopement</Link></SubLink>
+              <SubLink><Link to="/joshua-tree-elopement">Joshua Tree Elopement</Link></SubLink>
               <SubLink><Link to="/habersham-mills-wedding">Habersham Mills Wedding</Link></SubLink>
               <SubLink><Link to="/east-hampton-wedding">East Hampton Wedding</Link></SubLink>
               <SubLink><Link to="/summerour-studio-wedding">Summerour Studio Wedding</Link></SubLink>

@@ -16,7 +16,7 @@ const BackgroundCover = styled.div`
   right: -20px;
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
   background-image: url(${home7});
   background-size: cover;
 `
