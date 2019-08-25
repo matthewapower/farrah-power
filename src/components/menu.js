@@ -1,12 +1,13 @@
 import React from "react"
 import { Link } from "gatsby"
+import MenuBlogList from "../components/menu-blog-list"
 import styled from "styled-components"
 
 const Container = styled.ul`
-  border: 1px solid black;
+  outline: ${props => props.minimized ? "0" : "1px solid black"};
   list-style: none;
   padding: 0;
-  background-color: rgba(255,255,255,0.7);
+  background-color: ${props => props.minimized ? "transparent" : "rgba(255,255,255,0.7)"};
   position: fixed;
   top: 0;
   left: 0;
@@ -16,22 +17,21 @@ const Container = styled.ul`
   z-index: 1;
   transition: all 0.5s ease;
 
+
+  li:first-child {
+    transition: all 0.5s ease;
+    border-bottom: ${props => props.minimized ? "0" : "initail"};
+  }
+
   li:nth-child(n + 2) {
     transition: all 0.5s ease;
+    opacity: ${props => props.minimized ? "0" : "1"};
   }
 
   @media (max-width: 768px) {
     position: static;
     margin: 0;
     max-width: unset;
-  }
-`
-
-let ToggleContainer = styled(Container)`
-  transition: all 0.5s ease;
-
-  li:nth-child(n + 2) {
-    transition: all 0.5s ease;
   }
 `
 
@@ -61,20 +61,6 @@ const Item = styled.li`
     color: black;
     text-decoration: none;
   }
-`
-const SubList = styled.ul`
-  margin-left: 0;
-  overflow: scroll;
-  margin: 0;
-  transition: max-height 1s;
-  max-height: ${props => (props.collapsed === true) ? "0" : "150px"};
-  width: 100%;
-`
-
-const SubLink = styled.li`
-  list-style-type: none;
-  margin-left: 0;
-  font-weight: 700;
 `
 
 const SocialLink = styled.a`
@@ -116,39 +102,15 @@ class Menu extends React.Component {
 
   handleScroll() {
     let currentScroll = window.scrollY;
+    let navState = this .state.navHidden;
 
-    if (this.state.scrollY < currentScroll) {
-      this.toggleNav('close')
-    } else {
-      this.toggleNav('open')
+    if (this.state.scrollY < currentScroll && navState == false) {
+      this.setState({navHidden: true})
+    } else if (this.state.scrollY > currentScroll && navState == true) {
+      this.setState({navHidden: false})
     }
 
     this.setState({scrollY: currentScroll});
-  }
-
-  toggleNav(status) {
-    if (status === 'open') {
-      ToggleContainer = styled(Container)`
-        li:nth-child(n + 2) {
-          visibility: visible;
-        }
-      `
-    } else if (status === 'close') {
-      ToggleContainer = styled(Container)`
-        background-color: transparent;
-        border: 0;
-
-        li:first-child {
-          margin-left: 1px;
-          margin-top: 1px;
-          border: 0;
-        }
-
-        li:nth-child(n + 2) {
-          opacity: 0;
-        }
-      `
-    }
   }
 
   toggleDrawer() {
@@ -160,18 +122,11 @@ class Menu extends React.Component {
 
     return(
       <div>
-        <ToggleContainer>
+        <Container minimized={this.state.navHidden}>
           <Item><LogoLink to="/">Farrah Power</LogoLink></Item>
           <Item col>
             <div onClick={this.toggleDrawer}>Work</div> 
-            <SubList collapsed={dropDownState}> 
-              <SubLink><Link to="/joshua-tree-elopement">Joshua Tree Elopement</Link></SubLink>
-              <SubLink><Link to="/habersham-mills-wedding">Habersham Mills Wedding</Link></SubLink>
-              <SubLink><Link to="/east-hampton-wedding">East Hampton Wedding</Link></SubLink>
-              <SubLink><Link to="/summerour-studio-wedding">Summerour Studio Wedding</Link></SubLink>
-              <SubLink><Link to="/westside-warehouse-wedding">Westside Warehouse Wedding</Link></SubLink>
-              <SubLink><Link to="/camp-boxwood-wedding">Camp Boxwood Wedding</Link></SubLink>
-            </SubList>
+            <MenuBlogList collapsed={dropDownState} />
           </Item>
           <Item><Link to="/about">About</Link></Item>
           <Item><Link to="/contact">Contact</Link></Item>
@@ -195,7 +150,7 @@ class Menu extends React.Component {
               </SocialLink>
             </div>
           </Item>
-        </ToggleContainer>
+        </Container>
         <MessageTitle>{this.props.message}</MessageTitle>
       </div>
     )
