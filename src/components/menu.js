@@ -75,6 +75,10 @@ const MessageTitle = styled.h1`
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `
 
 class Menu extends React.Component {
@@ -91,7 +95,7 @@ class Menu extends React.Component {
 
   componentDidMount() {
     if (window.innerWidth > 768) {
-      this.state.scrollY = window.scrollY
+      this.setState({scrollY: window.scrollY})
       window.addEventListener('scroll', this.handleScroll);
     }
   }
@@ -102,11 +106,11 @@ class Menu extends React.Component {
 
   handleScroll() {
     let currentScroll = window.scrollY;
-    let navState = this .state.navHidden;
+    let navState = this.state.navHidden;
 
-    if (this.state.scrollY < currentScroll && navState == false) {
+    if (this.state.scrollY < currentScroll && navState === false) {
       this.setState({navHidden: true})
-    } else if (this.state.scrollY > currentScroll && navState == true) {
+    } else if (this.state.scrollY > currentScroll && navState === true) {
       this.setState({navHidden: false})
     }
 
