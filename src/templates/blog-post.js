@@ -1,11 +1,27 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 import { Helmet } from "react-helmet"
+import styled from "styled-components"
+
+const Container = styled.section`
+  max-width: 750px;
+  margin: 0 auto;
+  min-height: 100vh;
+`
+
+const Title = styled.h1`
+  font-family: garamond-premier-pro-display, serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 75px;
+  text-align: center;
+  max-width: 750px;
+  margin: 100px auto;
+`
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -19,16 +35,9 @@ class BlogPostTemplate extends React.Component {
           title={post.frontmatter.title}
           description={post.frontmatter.description || post.excerpt}
         />
-        <h1
-          style={{
-            position: "fixed",
-            top: "20px",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
+        <Title>
           {post.frontmatter.title}
-        </h1>
+        </Title>
         <p
           style={{
             ...scale(-1 / 5),
@@ -37,19 +46,14 @@ class BlogPostTemplate extends React.Component {
           }}
         >
         </p>
-        <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        <Container>
+          <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
+          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+        </Container>
         
         <Helmet>
           <script type="text/javascript" src={post.frontmatter.embedScript}></script>
         </Helmet>
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <Bio />
-
         <ul
           style={{
             display: `flex`,

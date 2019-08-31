@@ -4,10 +4,10 @@ const typography = new Typography({
   baseFontSize: "18px",
   baseLineHeight: 1.666,
   headerFontFamily: [
-    "neue-haas-grotesk-display",
-    "sans-serif"
+    "garamond-premier-pro-display",
+    "serif"
   ],
-  bodyFontFamily: ["neue-haas-grotesk-display", "sans-serif"],
+  bodyFontFamily: ["garamond-premier-pro", "serif"],
 })
 
 // Hot reload typography in development.

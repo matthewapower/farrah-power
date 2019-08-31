@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const SubList = styled.ul`
   margin-left: 0;
-  overflow: scroll;
+  overflow-y: scroll;
   margin: 0;
   transition: max-height 1s;
   max-height: ${props => (props.collapsed === true) ? "0" : "150px"};
@@ -14,7 +14,6 @@ const SubList = styled.ul`
 const SubLink = styled.li`
   list-style-type: none;
   margin-left: 0;
-  font-weight: 700;
 `
 
 export default function MenuBlogList(props) {

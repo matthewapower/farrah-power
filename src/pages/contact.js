@@ -19,6 +19,12 @@ const ChoiceContainer = styled.section`
   bottom: 0;
 `
 
+const Title = styled.h2`
+  font-size: 40px;
+  font-weight: 300;
+  text-align: center;
+`
+
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -27,18 +33,15 @@ const ButtonWrapper = styled.div`
 `
 
 const BorderButton = styled.button`
-  border: 2px solid black;
   background-color: transparent;
+  border: none;
   color: black;
   text-decoration: none;
   padding: 10px 30px;
   margin: 10px;
-  font-weight: 600;
-
-  :hover {
-    background-color: black;
-    color: white;
-  }
+  font-family: poppins, 'sans-serif';
+  font-weight: 400;
+  cursor: pointer;
 `
 
 const BorderLink = BorderButton.withComponent('a');
@@ -50,6 +53,10 @@ const ContactForm = styled.iframe`
   left: 0;
   right: 0;
   bottom: 0;
+
+  @media (max-width: 768px) {
+    position: relative;
+  }
 `
 
 class ContactPage extends React.Component {
@@ -72,7 +79,7 @@ class ContactPage extends React.Component {
         <SEO title="Contact Farrah" />
 
         <ChoiceContainer id="choiceContainer">
-          <h2>What would you like to inquire about?</h2>
+          <Title>What would you like to inquire about?</Title>
           <ButtonWrapper>
             <BorderButton onClick={() => this.showForm('typeform-full-wedding')}>Weddings</BorderButton>
             <BorderButton onClick={() => this.showForm('typeform-full-photoshoot')}>Photoshoots</BorderButton>

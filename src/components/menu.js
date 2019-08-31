@@ -2,9 +2,9 @@ import React from "react"
 import { Link } from "gatsby"
 import MenuBlogList from "../components/menu-blog-list"
 import styled from "styled-components"
+import logo from "../../content/assets/logo.svg"
 
 const Container = styled.ul`
-  outline: ${props => props.minimized ? "0" : "1px solid black"};
   list-style: none;
   padding: 0;
   background-color: ${props => props.minimized ? "transparent" : "rgba(255,255,255,0.7)"};
@@ -12,15 +12,43 @@ const Container = styled.ul`
   top: 0;
   left: 0;
   width: 100%;
-  max-width: 350px;
+  max-width: 300px;
   margin: 1rem;
   z-index: 1;
   transition: all 0.5s ease;
 
+  &:after {
+    content: '';
+    position: absolute;
+    border: 1px solid black;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    opacity ${props => props.minimized ? "0" : "1"};
+  }
 
-  li:first-child {
+
+  & > li:first-child {
+    border-bottom: none;
     transition: all 0.5s ease;
-    border-bottom: ${props => props.minimized ? "0" : "initail"};
+    position: relative;
+    height: 56px;
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 1px;
+      background-color: black;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      opacity ${props => props.minimized ? "0" : "1"};
+    }
   }
 
   li:nth-child(n + 2) {
@@ -29,9 +57,10 @@ const Container = styled.ul`
   }
 
   @media (max-width: 768px) {
-    position: static;
+    position: relative;
     margin: 0;
     max-width: unset;
+    max-height ${props => props.minimized ? "56px" : "500px"};
   }
 `
 
@@ -46,7 +75,9 @@ const Item = styled.li`
   margin-bottom: 0;
   padding: .5rem;
   font-size: 14px;
-  font-family: neue-haas-grotesk-display, sans-serif;
+  font-family: poppins, sans-serif;
+  font-weight: 400;
+  font-style: normal;
   text-transform: uppercase;
   display: flex;
   justify-content: space-between;
@@ -61,6 +92,15 @@ const Item = styled.li`
     color: black;
     text-decoration: none;
   }
+
+  button {
+    background: transparent;
+    border: none;
+    text-transform: uppercase;
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+  }
 `
 
 const SocialLink = styled.a`
@@ -71,12 +111,36 @@ const MessageTitle = styled.h1`
   position: fixed;
   top: 40px;
   right: 27px;
-  font-family: big-caslon-fb, serif;
-  font-weight: 400;
-  font-style: normal;
   font-size: 18px;
 
   @media (max-width: 768px) {
+    display: none;
+  }
+`
+
+const Burger = styled.button`
+  height: 15px;
+  width: 15px;
+  position: relative;
+  transition: transform 0.5s ease;
+  transform: ${props => props.navHidden ? "rotate(0)" : "rotate(135deg)"};
+
+  &:after,
+  &:before {
+    content: '';
+    position: absolute;
+    background-color: black;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 1px);
+  }
+
+  &:after {
+    transform: rotate(90deg);
+  }
+
+  @media (min-width: 769px) {
     display: none;
   }
 `
@@ -85,6 +149,7 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.toggleNav = this.toggleNav.bind(this);
     this.handleScroll = this.handleScroll.bind(this);
     this.state = {
       collapsed: true,
@@ -121,15 +186,22 @@ class Menu extends React.Component {
     this.setState({collapsed: !this.state.collapsed});
   }
 
+  toggleNav() {
+    this.setState({navHidden: !this.state.navHidden});
+  }
+
   render() {
     const dropDownState = this.state.collapsed;
 
     return(
       <div>
         <Container minimized={this.state.navHidden}>
-          <Item><LogoLink to="/">Farrah Power</LogoLink></Item>
+          <Item>
+            <LogoLink to="/"><img src={logo} alt="#"/></LogoLink>
+            <Burger navHidden={this.state.navHidden} onClick={this.toggleNav}/>
+          </Item>
           <Item col>
-            <div onClick={this.toggleDrawer}>Work</div> 
+            <button onClick={this.toggleDrawer}>Work</button> 
             <MenuBlogList collapsed={dropDownState} />
           </Item>
           <Item><Link to="/about">About</Link></Item>
