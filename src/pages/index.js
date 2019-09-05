@@ -1,5 +1,5 @@
 import React from "react"
-import {graphql} from "gatsby"
+import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
@@ -31,27 +31,46 @@ const BottomImage = styled(props => <Img {...props} />)`
 
 class MoodBoard extends React.Component {
   render() {
-    const images = this.props.data;
+    const data = this.props.data;
+    const images = [
+      {
+        topImage: data.topImage1.childImageSharp.fixed,
+        bottomImage: data.bottomImage1.childImageSharp.fluid
+      },
+      {
+        topImage: data.topImage2.childImageSharp.fixed,
+        bottomImage: data.bottomImage2.childImageSharp.fluid
+      },
+      {
+        topImage: data.topImage3.childImageSharp.fixed,
+        bottomImage: data.bottomImage3.childImageSharp.fluid
+      }
+    ];
 
     console.log(images)
     return (
       <Layout location={this.props.location} message="Photos Worth Keeping*">
-        <SEO title="All posts" /> 
-        <BackgroundCover>
-        <BottomImage 
-            fluid={images.bottomImage.childImageSharp.fluid}
-            alt="#"
-            style={{
-              position: "absolute"
-            }}
-          />
-          <TopImage 
-            fixed={images.topImage.childImageSharp.fixed}
-            objectFit="cover"
-            objectPosition="50% 50%"
-            alt="#"
-          />
-        </BackgroundCover>
+        <SEO title="All posts" />
+        {images.map((data) => (
+          <BackgroundCover>
+            <BottomImage 
+              fluid={data.bottomImage}
+              alt="#"
+              style={{
+                position: "absolute"
+              }}
+            />
+            <Link to="/contact">
+              <TopImage 
+                fixed={data.topImage}
+                objectFit="cover"
+                objectPosition="50% 50%"
+                alt="#"
+              />
+              Blog Name
+            </Link>
+          </BackgroundCover>
+        ))}
       </Layout>
     )
   }
@@ -59,7 +78,7 @@ class MoodBoard extends React.Component {
 
 export const pageQuery = graphql`
   {
-    topImage: file(absolutePath: {regex: "/home-5.jpg/"}) {
+    topImage1: file(absolutePath: {regex: "/front-1.jpg/"}) {
       childImageSharp {
         fixed(width: 1000, pngCompressionSpeed: 10) {
           srcSet
@@ -67,7 +86,39 @@ export const pageQuery = graphql`
         }
       }
     }
-    bottomImage: file(absolutePath: {regex: "/home-7.jpg/"}) {
+    bottomImage1: file(absolutePath: {regex: "/back-1.jpg/"}) {
+      childImageSharp {
+        fluid(maxWidth: 2000) {
+          src
+          srcSet
+        }
+      }
+    }
+    topImage2: file(absolutePath: {regex: "/front-2.jpg/"}) {
+      childImageSharp {
+        fixed(width: 1000, pngCompressionSpeed: 10) {
+          srcSet
+          src
+        }
+      }
+    }
+    bottomImage2: file(absolutePath: {regex: "/back-2.jpg/"}) {
+      childImageSharp {
+        fluid(maxWidth: 2000) {
+          src
+          srcSet
+        }
+      }
+    }
+    topImage3: file(absolutePath: {regex: "/front-3.jpg/"}) {
+      childImageSharp {
+        fixed(width: 1000, pngCompressionSpeed: 10) {
+          srcSet
+          src
+        }
+      }
+    }
+    bottomImage3: file(absolutePath: {regex: "/back-3.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           src
