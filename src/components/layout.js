@@ -13,7 +13,7 @@ class Layout extends React.Component {
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: `100%`,
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          padding: `0`,
         }}
       >
         <Menu message="Photos Worth Keeping*"/>
