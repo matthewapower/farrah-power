@@ -12,7 +12,8 @@ const BackgroundCover = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  display: none;
+  display: flex;
+  transition: opacity 0.5s ease;
 
   &:first-child {
     display: flex;
@@ -60,18 +61,20 @@ class MoodBoard extends React.Component {
 
     setInterval(() => {
       for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none"
+        // slides[i].style.display = "none";
+        slides[i].style.opacity = 0;
+        slides[i].style.zIndex = -1;
       }
-      slides[activeSlide].style.display = "flex";
-
-      console.log(slides.length)
+      // slides[activeSlide].style.display = "flex";
+      slides[activeSlide].style.opacity = 1;
+      slides[activeSlide].style.zIndex = 0;
 
       if (activeSlide === slides.length - 1) {
         activeSlide = 0;
       } else {
         activeSlide++;
       }
-    }, 10000);
+    }, 6000);
   }
 
   render() {
@@ -79,16 +82,19 @@ class MoodBoard extends React.Component {
     const images = [
       {
         url: "summerour-studio-wedding",
+        title: "Summerour Studio Wedding",
         topImage: data.topImage1.childImageSharp.fixed,
         bottomImage: data.bottomImage1.childImageSharp.fluid
       },
       {
-        url: "joshua-tree-elopment",
+        url: "joshua-tree-elopement",
+        title: "Joshua Tree Elopement",
         topImage: data.topImage2.childImageSharp.fixed,
         bottomImage: data.bottomImage2.childImageSharp.fluid
       },
       {
-        url: "manzanita-couples-shoot",
+        url: "manzanita-oregon-couples-portraits",
+        title: "Manzanita Oregon Couples Portraits",
         topImage: data.topImage3.childImageSharp.fixed,
         bottomImage: data.bottomImage3.childImageSharp.fluid
       }
@@ -107,14 +113,14 @@ class MoodBoard extends React.Component {
                   position: "absolute"
                 }}
               />
-              <Card to="/contact">
+              <Card to={"/" + data.url}>
                 <TopImage 
                   fixed={data.topImage}
                   objectFit="cover"
                   objectPosition="50% 50%"
                   alt="#"
                 />
-                <span>Blog Name</span>
+                <span>{data.title}</span>
               </Card>
             </BackgroundCover>
           ))}
@@ -166,7 +172,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    bottomImage3: file(absolutePath: {regex: "/back-3.jpg/"}) {
+    bottomImage3: file(absolutePath: {regex: "/back-4.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           src

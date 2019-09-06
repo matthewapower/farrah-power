@@ -17,6 +17,13 @@ const ChoiceContainer = styled.section`
   left: 0;
   right: 0;
   bottom: 0;
+
+  @media (max-width: 768px) {
+    margin: 0 5vw;
+    width: 90vw;
+    position: static;
+    height: 80vh;
+  }
 `
 
 const Title = styled.h2`
@@ -30,6 +37,12 @@ const ButtonWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+
+  @media (max-width: 768px) {
+    margin: 0 5vw;
+    width: 90vw;
+    flex-direction: column;
+  }
 `
 
 const BorderButton = styled.button`
@@ -42,6 +55,10 @@ const BorderButton = styled.button`
   font-family: poppins, 'sans-serif';
   font-weight: 400;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    padding: 10px 10px;
+  }
 `
 
 const BorderLink = BorderButton.withComponent('a');
@@ -73,6 +90,8 @@ class ContactPage extends React.Component {
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
+
+
 
     return (
       <Layout location={this.props.location} title={siteTitle}>

@@ -23,6 +23,12 @@ const Title = styled.h1`
   margin: 100px auto;
 `
 
+const ContinueLink = styled(props => <Link {...props} />)`
+  color: black;
+  text-decoration: none;
+  font-size: 20px;
+`
+
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
@@ -61,20 +67,21 @@ class BlogPostTemplate extends React.Component {
             justifyContent: `space-between`,
             listStyle: `none`,
             padding: 0,
+            margin: "40px 20px"
           }}
         >
           <li>
             {previous && (
-              <Link to={previous.fields.slug} rel="prev">
+              <ContinueLink to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
-              </Link>
+              </ContinueLink>
             )}
           </li>
           <li>
             {next && (
-              <Link to={next.fields.slug} rel="next">
+              <ContinueLink to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
-              </Link>
+              </ContinueLink>
             )}
           </li>
         </ul>

@@ -112,6 +112,7 @@ const MessageTitle = styled.h1`
   top: 40px;
   right: 27px;
   font-size: 18px;
+  z-index: 2;
 
   @media (max-width: 768px) {
     display: none;
@@ -213,7 +214,7 @@ class Menu extends React.Component {
           <Item><Link to="/about">About</Link></Item>
           <Item><Link to="/contact">Contact</Link></Item>
           <Item>
-            <div>Maui 78 F</div>
+            {/* <div>Maui 78 F</div> */}
             <div>
               <SocialLink href="https://www.facebook.com/farrahpower/">
                 <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -9,14 +9,19 @@ class Layout extends React.Component {
     return (
       <div
         style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
+          margin: `0 auto`,
           maxWidth: `100%`,
           padding: `0`,
         }}
       >
         <Menu message="Photos Worth Keeping*"/>
-        <main>{children}</main>
+        <main
+          style={{
+            margin: this.props.contain ?  `0 5vw` : `0 auto`,
+          }}
+        >
+          {children}
+        </main>
         {/* <footer>
           © {new Date().getFullYear()}, Farrah Power
         </footer> */}
