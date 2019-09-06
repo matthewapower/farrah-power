@@ -159,13 +159,11 @@ class Menu extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (window.innerWidth <= 768) {
       this.setState({navHidden: true})
     }
-  }
 
-  componentDidMount() {
     if (window.innerWidth > 768) {
       this.setState({scrollY: window.scrollY})
       window.addEventListener('scroll', this.handleScroll);
