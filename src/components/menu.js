@@ -58,8 +58,8 @@ const Container = styled.ul`
 
   @media (max-width: 768px) {
     position: relative;
-    margin: 0;
-    max-width: unset;
+    margin: 5vw;
+    max-width: 90vw;
     max-height ${props => props.minimized ? "56px" : "500px"};
   }
 `
@@ -156,6 +156,12 @@ class Menu extends React.Component {
       navHidden: false,
       scrollY: 0
     };
+  }
+
+  componentWillMount() {
+    if (window.innerWidth <= 768) {
+      this.setState({navHidden: true})
+    }
   }
 
   componentDidMount() {

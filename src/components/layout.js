@@ -17,9 +17,9 @@ class Layout extends React.Component {
       >
         <Menu message="Photos Worth Keeping*"/>
         <main>{children}</main>
-        <footer>
+        {/* <footer>
           © {new Date().getFullYear()}, Farrah Power
-        </footer>
+        </footer> */}
       </div>
     )
   }

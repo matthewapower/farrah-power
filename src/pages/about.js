@@ -4,7 +4,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
-import headshot from "../../content/assets/about.png"
+import Img from "gatsby-image"
 
 const Container = styled.main`
   max-width: 750px;
@@ -17,8 +17,10 @@ const Container = styled.main`
   }
 `
 
-const AboutImg = styled.img`
+const AboutImg = styled(props => <Img {...props} />)`
   max-width: 250px;
+  width: 250px;
+  height: 300px;
   display: block;
   margin: 0 auto;
 `
@@ -52,7 +54,13 @@ class AboutPage extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <SEO title="About" />
         <Container>
-          <AboutImg src={headshot} alt="#"/>
+          <AboutImg 
+            fixed={data.aboutImage.childImageSharp.fixed}
+            objectFit="cover"
+            objectPosition="50% 50%"
+            alt="#"
+            style={{display: "block"}}
+          />
           <TextContainer>
             <h1>Meet Farrah</h1>
             <p>For the past five years Farrah has been photographing weddings and elopments. She has found her niche in documentary style wedding photography because of the way it produces meaningful and honest imagery that gets better over time. Farrah and her husband Matt live in Atlanta, GA but continue to fall in love with the cities their travels bring them to.</p>
@@ -67,6 +75,14 @@ export default AboutPage
 
 export const pageQuery = graphql`
   query {
+    aboutImage: file(absolutePath: {regex: "/about.png/"}) {
+      childImageSharp {
+        fixed(width: 1000) {
+          srcSet
+          src
+        }
+      }
+    }
     site {
       siteMetadata {
         title
