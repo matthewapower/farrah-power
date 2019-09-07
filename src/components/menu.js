@@ -60,7 +60,8 @@ const Container = styled.ul`
     position: relative;
     margin: 5vw;
     max-width: 90vw;
-    max-height ${props => props.minimized ? "56px" : "500px"};
+    max-height: 56px;
+    max-height: ${props => props.minimized ? "56px" : "500px"};
   }
 `
 
@@ -159,16 +160,12 @@ class Menu extends React.Component {
     };
   }
 
-  componentWillMount() {
-    if (window.innerWidth <= 768) {
-      this.setState({navHidden: true})
-    }
-  }
-
   componentDidMount() {
     if (window.innerWidth > 768) {
       this.setState({scrollY: window.scrollY})
       window.addEventListener('scroll', this.handleScroll);
+    } else if (window.innerWidth <= 768) {
+      this.setState({navHidden: true})
     }
   }
 
