@@ -13,10 +13,11 @@ const BackgroundCover = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
-  transition: opacity 0.5s ease;
+  transition: opacity 2s ease;
+  opacity: 0;
 
   &:first-child {
-    display: flex;
+    opacity: 1;
   }
 `
 const TopImage = styled(props => <Img {...props} />)`
@@ -48,6 +49,15 @@ const Card = styled(props => <Link {...props} />)`
   flex-direction: column;
   justify-content: center;
 
+  .gatsby-image-wrapper {
+    transition: transform 0.5s ease;
+    transform: scale(1);
+  }
+
+  &:hover .gatsby-image-wrapper {
+    transform: scale(1.01);
+  }
+
   span {
     width: 100%;
   }
@@ -61,11 +71,9 @@ class MoodBoard extends React.Component {
 
     setInterval(() => {
       for (let i = 0; i < slides.length; i++) {
-        // slides[i].style.display = "none";
         slides[i].style.opacity = 0;
         slides[i].style.zIndex = -1;
       }
-      // slides[activeSlide].style.display = "flex";
       slides[activeSlide].style.opacity = 1;
       slides[activeSlide].style.zIndex = 0;
 
@@ -74,7 +82,7 @@ class MoodBoard extends React.Component {
       } else {
         activeSlide++;
       }
-    }, 6000);
+    }, 10000);
   }
 
   render() {
