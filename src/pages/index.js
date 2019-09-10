@@ -15,9 +15,11 @@ const BackgroundCover = styled.div`
   display: flex;
   transition: opacity 2s ease;
   opacity: 0;
+  z-index: -1;
 
   &:first-child {
     opacity: 1;
+    z-index: 0;
   }
 `
 const TopImage = styled(props => <Img {...props} />)`
