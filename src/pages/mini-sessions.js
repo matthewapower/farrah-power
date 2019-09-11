@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
+import Img from "gatsby-image"
 
 const ChoiceContainer = styled.section`
   height: 100vh;
@@ -26,42 +27,21 @@ const ChoiceContainer = styled.section`
   }
 `
 
-const Title = styled.h2`
-  font-size: 40px;
-  font-weight: 300;
-  text-align: center;
-`
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-
-  @media (max-width: 768px) {
-    margin: 0 5vw;
-    width: 90vw;
-    flex-direction: column;
-  }
-`
-
 const BorderButton = styled.button`
   background-color: transparent;
   border: none;
-  color: black;
+  color: white;
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 10px 0;
   margin: 10px;
   font-family: poppins, 'sans-serif';
   font-weight: 400;
   cursor: pointer;
 
   @media (max-width: 768px) {
-    padding: 10px 10px;
+    padding: 10px 0;
   }
 `
-
-const BorderLink = BorderButton.withComponent('a');
 
 const ContactForm = styled.iframe`
   display: none;
@@ -73,6 +53,52 @@ const ContactForm = styled.iframe`
 
   @media (max-width: 768px) {
     position: relative;
+  }
+`
+
+const BackgroundImg = styled(props => <Img {...props} />)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+`
+
+const InfoGrid = styled.p`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rowss: 1fr 1fr;
+  max-width: 300px;
+  min-height: 100px;
+  position: relative;
+
+  span:nth-child(2):before,
+  span:nth-child(3):before {
+    content: '';
+    position: absolute;
+    background-color: white;
+    width: 1px;
+    min-height: 80%;
+    top: 0;
+    transform: translateX(-10px);
+  }
+`
+
+const OverText = styled.div`
+  color: white;
+
+  h1 {
+    font-size: 100px;
+    font-weight: 100;
+
+    @media (max-width: 425px) {
+      font-size: 20vw
+    }
+  }
+
+  p {
+    max-width: 300px;
   }
 `
 
@@ -90,18 +116,34 @@ class ContactPage extends React.Component {
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
-
+    console.log(data.background)
 
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="Contact Farrah" />
+        <SEO title="Mini Sessions for Fall 2019" />
 
         <ChoiceContainer id="choiceContainer">
-          <Title>Thanks for your interest in mini sessions</Title>
-          <ButtonWrapper>
+          <BackgroundImg
+            fluid={data.background.childImageSharp.fluid}
+            objectFit="cover"
+            objectPosition="50% 50%"
+            alt="#"
+            style={{position: "absolute"}}
+          />
+          <OverText>
+            <h1>Mini Sessions</h1>
+            <InfoGrid>
+              <span>Mintues:</span>
+              <span>15</span>
+              <span>30</span>
+              <span>Photos:</span>
+              <span>10-15</span>
+              <span>20-30</span>
+            </InfoGrid>
+            <p>All include edited, high resolution files delivered through an online gallery.</p>
             <BorderButton onClick={() => this.showForm('typeform-mini-sessions')}>Book Now</BorderButton>
-          </ButtonWrapper>
+          </OverText>
         </ChoiceContainer>
         <ContactForm title="Wedding Form" id="typeform-mini-sessions" style={{height: `100vh`}} width="100%" frameBorder="0" src="https://farrahpower.typeform.com/to/sp8jIm"></ContactForm> 
       </Layout>
@@ -116,6 +158,14 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    background: file(absolutePath: {regex: "/mini-sessions.jpg/"}) {
+      childImageSharp {
+        fluid(maxWidth: 2000) {
+          src
+          srcSet
+        }
       }
     }
   }
