@@ -127,7 +127,7 @@ class ContactPage extends React.Component {
           <BackgroundImg
             fluid={data.background.childImageSharp.fluid}
             objectFit="cover"
-            objectPosition="50% 50%"
+            objectPosition="center center"
             alt="#"
             style={{position: "absolute"}}
           />
