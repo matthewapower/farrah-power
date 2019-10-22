@@ -151,7 +151,7 @@ class ContactPage extends React.Component {
             </label>
             <label>
               Your Partner's Full Name
-              <input type="text" name="name" id="name" />
+              <input type="text" name="name" id="partner-name" />
             </label>
             <label>
               What's Your Email Address?
