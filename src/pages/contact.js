@@ -143,7 +143,7 @@ class ContactPage extends React.Component {
         </ChoiceContainer>
         <ContactForm id="full-wedding">
           <h2>Weddings</h2>
-          <form name="contact-wedding" method="post" netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
+          <form name="contact-wedding" method="post" data-netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
             <input type="hidden" name="bot-field" />
             <label>
               Your Full Name
@@ -186,7 +186,7 @@ class ContactPage extends React.Component {
         </ContactForm>
         <ContactForm id="full-photoshoot">
           <h2>Portraits</h2>
-          <form name="photoshoot-inquiry" method="post" netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
+          <form name="photoshoot-inquiry" method="post" data-netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
             <input type="hidden" name="bot-field" />
             <label>
               Full Name
@@ -205,7 +205,7 @@ class ContactPage extends React.Component {
         </ContactForm>
         <ContactForm id="general-contact">
           <h2>Contact</h2>
-          <form name="contact-general" method="post" netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
+          <form name="contact-general" method="post" data-netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
             <input type="hidden" name="bot-field" />
             <label>
               Full Name
