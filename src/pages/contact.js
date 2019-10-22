@@ -186,19 +186,19 @@ class ContactPage extends React.Component {
         </ContactForm>
         <ContactForm id="full-photoshoot">
           <h2>Portraits</h2>
-          <form name="contact-photoshoot" method="post" netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
+          <form name="photoshoot-inquiry" method="post" netlify-honeypot="bot-field" data-netlify="true" action="/thanks">
             <input type="hidden" name="bot-field" />
             <label>
               Full Name
-              <input type="text" name="name" id="photoshoot-name" />
+              <input type="text" name="photoshoot-name" id="photoshoot-name" />
             </label>
             <label>
               Email
-              <input type="email" name="email" id="photoshoot-email" />
+              <input type="email" name="photoshoot-email" id="photoshoot-email" />
             </label>
             <label>
               What would you like to have photographed?
-              <textarea name="message" id="photoshoot-message" rows="5" />
+              <textarea name="photoshoot-message" id="photoshoot-message" rows="5" />
             </label>
             <BorderButton type="submit">Send</BorderButton>
           </form>
@@ -209,15 +209,15 @@ class ContactPage extends React.Component {
             <input type="hidden" name="bot-field" />
             <label>
               Full Name
-              <input type="text" name="name" id="contact-name" />
+              <input type="text" name="contact-name" id="contact-name" />
             </label>
             <label>
               Email
-              <input type="email" name="email" id="contact-email" />
+              <input type="email" name="contact-email" id="contact-email" />
             </label>
             <label>
               Message
-              <textarea name="message" id="contact-message" rows="5" />
+              <textarea name="contact-message" id="contact-message" rows="5" />
             </label>
             <BorderButton type="submit">Send</BorderButton>
           </form>
