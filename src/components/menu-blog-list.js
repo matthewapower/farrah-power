@@ -9,6 +9,14 @@ const SubList = styled.ul`
   transition: max-height 1s;
   max-height: ${props => (props.collapsed === true) ? "0" : "150px"};
   width: 100%;
+
+  &::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: black;
+  }
 `
 
 const SubLink = styled.li`
