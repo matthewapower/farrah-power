@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -45,7 +45,7 @@ const ButtonWrapper = styled.div`
   }
 `
 
-const BorderButton = styled(Link)`
+const BorderButton = styled.button`
   background-color: transparent;
   border: none;
   color: black;
@@ -61,10 +61,37 @@ const BorderButton = styled(Link)`
   }
 `
 
+const BorderLink = BorderButton.withComponent('a');
+
+const ContactForm = styled.iframe`
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  @media (max-width: 768px) {
+    position: relative;
+  }
+`
+
 class ContactPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.showForm = this.showForm.bind(this);
+  }
+
+  showForm(showId) {
+    document.getElementById(showId).style.display = "block";
+    document.getElementById('choiceContainer').style.display = "none";
+  }
+
   render() {
     const { data } = this.props
     const siteTitle = data.site.siteMetadata.title
+
+
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -73,11 +100,13 @@ class ContactPage extends React.Component {
         <ChoiceContainer id="choiceContainer">
           <Title>What would you like to inquire about?</Title>
           <ButtonWrapper>
-            <BorderButton to="/weddings">Weddings</BorderButton>
-            <BorderButton to="/portraits">Portraits</BorderButton>
-            <BorderButton to="/inquiry">Other</BorderButton>
+            <BorderButton onClick={() => this.showForm('typeform-full-wedding')}>Weddings</BorderButton>
+            <BorderButton onClick={() => this.showForm('typeform-full-photoshoot')}>Photoshoots</BorderButton>
+            <BorderLink href="mailto:hello@farrahpower.com?subject=General%20Inquiry">Other</BorderLink>
           </ButtonWrapper>
         </ChoiceContainer>
+        <ContactForm title="Wedding Form" id="typeform-full-wedding" style={{height: `100vh`}} width="100%" frameBorder="0" src="https://farrahpower.typeform.com/to/D9ELVQ"></ContactForm> 
+        <ContactForm title="Photoshoot Form" id="typeform-full-photoshoot" style={{height: `100vh`}} width="100%" frameBorder="0" src="https://farrahpower.typeform.com/to/VUHTSb"></ContactForm>
       </Layout>
     )
   }
