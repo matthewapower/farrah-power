@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { navigate } from 'gatsby-link'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -72,48 +72,69 @@ const ContactForm = styled.div`
     }
   }
 `
-
-class GeneralContactForm extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="Contact Farrah" />
-
-        <ContactForm id="general-contact">
-          <h2>Contact</h2>
-          <form name="contact-general" method="post" data-netlify-honeypot="bot-field" data-netlify="true">
-            <input type="hidden" name="bot-field" />
-            <label>
-              Full Name
-              <input type="text" name="contact-name" id="contact-name" />
-            </label>
-            <label>
-              Email
-              <input type="email" name="contact-email" id="contact-email" />
-            </label>
-            <label>
-              Message
-              <textarea name="contact-message" id="contact-message" rows="5" />
-            </label>
-            <BorderButton type="submit">Send</BorderButton>
-          </form>
-        </ContactForm>
-      </Layout>
-    )
-  }
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&')
 }
 
-export default GeneralContactForm
+export default function GeneralContactForm() {
+  const [state, setState] = React.useState({})
 
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value })
   }
-`
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action')))
+      .catch((error) => alert(error))
+  }
+
+  return (
+    <Layout title="Contact">
+      <SEO title="Contact Farrah" />
+
+      <ContactForm id="general-contact">
+        <h2>Contact</h2>
+        <form 
+          name="contact-general"
+          method="post"
+          action="/thanks/"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>
+              Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+            </label>
+          </p>
+          <label>
+            Full Name
+            <input type="text" name="contact-name" id="contact-name"  onChange={handleChange}/>
+          </label>
+          <label>
+            Email
+            <input type="email" name="contact-email" id="contact-email" onChange={handleChange}/>
+          </label>
+          <label>
+            Message
+            <textarea name="contact-message" id="contact-message" rows="5" onChange={handleChange}/>
+          </label>
+          <BorderButton type="submit">Send</BorderButton>
+        </form>
+      </ContactForm>
+    </Layout>
+  )
+}
