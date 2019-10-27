@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { navigate } from 'gatsby-link'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -72,72 +72,93 @@ const ContactForm = styled.div`
     }
   }
 `
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&')
+}
 
-class WeddingForm extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
+export default function GeneralContactForm() {
+  const [state, setState] = React.useState({})
 
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="Contact Farrah" />
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
 
-        <ContactForm id="full-wedding">
-          <h2>Weddings</h2>
-          <form name="contact-wedding" method="post" data-netlify-honeypot="bot-field" data-netlify="true">
-            <input type="hidden" name="bot-field" />
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action')))
+      .catch((error) => alert(error))
+  }
+
+  return (
+    <Layout title="Contact">
+      <SEO title="Contact Farrah" />
+
+      <ContactForm id="general-contact">
+        <h2>Weddings</h2>
+        <form 
+          name="contact-wedding"
+          method="post"
+          action="/thanks/"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
             <label>
+              Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+            </label>
+          </p>
+          <label>
               Your Full Name
-              <input type="text" name="name" id="name" />
+              <input type="text" name="name" id="name" onChange={handleChange} />
             </label>
             <label>
               Your Partner's Full Name
-              <input type="text" name="partner-name" id="partner-name" />
+              <input type="text" name="partner-name" id="partner-name" onChange={handleChange} />
             </label>
             <label>
               What's Your Email Address?
-              <input type="email" name="email" id="email" />
+              <input type="email" name="email" id="email" onChange={handleChange} />
             </label>
             <label>
               What's Your Wedding Date?
-              <input type="date" name="weddingdate" id="weddingdate" />
+              <input type="date" name="weddingdate" id="weddingdate" onChange={handleChange} />
             </label>
             <label>
               Where is Your Wedding Going to Be?
-              <input type="text" name="location" id="location" />
+              <input type="text" name="location" id="location" onChange={handleChange} />
             </label>
             <label>
               What's a Good Phone Number to Reach You?
-              <input type="text" name="phone" id="phone" />
+              <input type="text" name="phone" id="phone" onChange={handleChange} />
             </label>
             <label>
               Tell Me About the Two of You!
-              <textarea name="about" id="about" rows="5" resize="none" />
+              <textarea name="about" id="about" rows="5" resize="none" onChange={handleChange} />
             </label>
             <label>
               What is the most important to you on your wedding day?
-              <textarea name="message" id="message" rows="5" resize="none" />
+              <textarea name="message" id="message" rows="5" resize="none" onChange={handleChange} />
             </label>
             <label>
               How did you discover my work?
-              <input type="text" name="refferal" id="refferal" />
+              <input type="text" name="refferal" id="refferal" onChange={handleChange} />
             </label>
-            <BorderButton type="submit">Send</BorderButton>
-          </form>
-        </ContactForm>
-      </Layout>
-    )
-  }
+          <BorderButton type="submit">Send</BorderButton>
+        </form>
+      </ContactForm>
+    </Layout>
+  )
 }
-
-export default WeddingForm
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

@@ -1,5 +1,5 @@
 import React from "react"
-import { graphql } from "gatsby"
+import { navigate } from 'gatsby-link'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -72,48 +72,69 @@ const ContactForm = styled.div`
     }
   }
 `
+function encode(data) {
+  return Object.keys(data)
+    .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&')
+}
 
-class PortaitForm extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
+export default function GeneralContactForm() {
+  const [state, setState] = React.useState({})
 
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO title="Contact Farrah" />
+  const handleChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value })
+  }
 
-        <ContactForm id="full-photoshoot">
-          <h2>Portraits</h2>
-          <form name="photoshoot-inquiry" method="post" data-netlify-honeypot="bot-field" data-netlify="true">
-            <input type="hidden" name="bot-field" />
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const form = e.target
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode({
+        'form-name': form.getAttribute('name'),
+        ...state,
+      }),
+    })
+      .then(() => navigate(form.getAttribute('action')))
+      .catch((error) => alert(error))
+  }
+
+  return (
+    <Layout title="Contact">
+      <SEO title="Contact Farrah" />
+
+      <ContactForm id="general-contact">
+        <h2>Portraits</h2>
+        <form 
+          name="photoshoot-inquiry"
+          method="post"
+          action="/thanks/"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+          onSubmit={handleSubmit}
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
             <label>
+              Don’t fill this out: <input name="bot-field" onChange={handleChange} />
+            </label>
+          </p>
+          <label>
               Full Name
-              <input type="text" name="photoshoot-name" id="photoshoot-name" />
+              <input type="text" name="photoshoot-name" id="photoshoot-name" onChange={handleChange} />
             </label>
             <label>
               Email
-              <input type="email" name="photoshoot-email" id="photoshoot-email" />
+              <input type="email" name="photoshoot-email" id="photoshoot-email" onChange={handleChange} />
             </label>
             <label>
               What would you like to have photographed?
-              <textarea name="photoshoot-message" id="photoshoot-message" rows="5" />
+              <textarea name="photoshoot-message" id="photoshoot-message" rows="5" onChange={handleChange} />
             </label>
-            <BorderButton type="submit">Send</BorderButton>
-          </form>
-        </ContactForm>
-      </Layout>
-    )
-  }
+          <BorderButton type="submit">Send</BorderButton>
+        </form>
+      </ContactForm>
+    </Layout>
+  )
 }
-
-export default PortaitForm
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`
