@@ -17,6 +17,10 @@ const BackgroundCover = styled.div`
   opacity: 0;
   z-index: -1;
 
+  @media (max-width: 768px) {
+    height: 90vh;
+  }
+
   &:first-child {
     opacity: 1;
     z-index: 0;

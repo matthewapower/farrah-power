@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import CtaFooter from "../components/CtaFooter"
 import styled from "styled-components"
 import Img from "gatsby-image"
 
@@ -30,12 +31,20 @@ const TextContainer = styled.div`
   margin: 0 auto 0;
   text-align: center;
 
+  @media (max-width: 768px) {
+    margin: 0 20px;
+  }
+
   h1 {
     font-family: garamond-premier-pro-display, serif;
     font-weight: 300;
     font-style: normal;
     font-size: 100px;
     margin-bottom: 0.1em;
+
+    @media (max-width: 768px) {
+      font-size: 60px;
+    }
   }
 
   p {
@@ -52,11 +61,19 @@ const Manifesto = styled.section`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    min-height: initial;
+  }
+
   article {
     background-color: #F5EFE8;
     padding: 60px;
     box-sizing: border-box;
     text-align: center;
+
+    @media (max-width: 768px) {
+      padding: 60px 10px;
+    }
   }
 
   h2 {
@@ -65,6 +82,10 @@ const Manifesto = styled.section`
     font-style: normal;
     font-size: 80px;
     margin-bottom: 0.5em;
+
+    @media (max-width: 768px) {
+      font-size: 60px;
+    }
   }
 
   p {
@@ -80,6 +101,7 @@ const BottomLine = styled.h3`
   text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 12px;
+  line-height: 16px;
   margin-top: 40px;
   margin-bottom: 40px;
 `;
@@ -138,6 +160,7 @@ class AboutPage extends React.Component {
             <p>For the past five years Farrah has been photographing weddings and elopments. She has found her niche in documentary style wedding photography because of the way it produces meaningful and honest imagery that gets better over time. Farrah and her husband Matt live in Atlanta, GA but continue to fall in love with the cities their travels bring them to.</p>
           </TextContainer>
         </Container>
+        <CtaFooter />
       </Layout>
     )
   }

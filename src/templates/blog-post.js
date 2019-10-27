@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import CtaFooter from "../components/CtaFooter"
 import { Helmet } from "react-helmet"
 import styled from "styled-components"
 
@@ -21,6 +21,12 @@ const Title = styled.h1`
   text-align: center;
   max-width: 750px;
   margin: 100px auto 50px;
+
+  @media (max-width: 768px) {
+    font-size: 40px;
+    line-height: 42px;
+    margin: 40px auto 50px;
+  }
 `
 
 const ContinueLink = styled(props => <Link {...props} />)`
@@ -36,6 +42,25 @@ const PostContent = styled.div`
   ul {
     list-style: none;
     margin-left: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+`;
+
+const NavControls = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  listStyle: none;
+  padding: 0;
+  margin: 40px 0;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    justify-content: center;
   }
 `;
 
@@ -54,47 +79,32 @@ class BlogPostTemplate extends React.Component {
         <Title>
           {post.frontmatter.title}
         </Title>
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: `block`,
-            marginBottom: rhythm(1),
-          }}
-        >
-        </p>
+
         <Container>
           <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
           <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
+          <NavControls>
+            <li>
+              {previous && (
+                <ContinueLink to={previous.fields.slug} rel="prev">
+                  ← {previous.frontmatter.title}
+                </ContinueLink>
+              )}
+            </li>
+            <li>
+              {next && (
+                <ContinueLink to={next.fields.slug} rel="next">
+                  {next.frontmatter.title} →
+                </ContinueLink>
+              )}
+            </li>
+          </NavControls>
         </Container>
         
         <Helmet>
           <script type="text/javascript" src={post.frontmatter.embedScript}></script>
         </Helmet>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-            margin: "40px 20px"
-          }}
-        >
-          <li>
-            {previous && (
-              <ContinueLink to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </ContinueLink>
-            )}
-          </li>
-          <li>
-            {next && (
-              <ContinueLink to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </ContinueLink>
-            )}
-          </li>
-        </ul>
+        <CtaFooter />
       </Layout>
     )
   }
