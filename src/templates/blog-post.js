@@ -20,7 +20,7 @@ const Title = styled.h1`
   font-size: 75px;
   text-align: center;
   max-width: 750px;
-  margin: 100px auto;
+  margin: 100px auto 50px;
 `
 
 const ContinueLink = styled(props => <Link {...props} />)`
@@ -28,6 +28,16 @@ const ContinueLink = styled(props => <Link {...props} />)`
   text-decoration: none;
   font-size: 20px;
 `
+
+const PostContent = styled.div`
+  text-align: center;
+  margin-bottom: 100px;
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+`;
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -53,8 +63,8 @@ class BlogPostTemplate extends React.Component {
         >
         </p>
         <Container>
+          <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
           <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
         </Container>
         
         <Helmet>
