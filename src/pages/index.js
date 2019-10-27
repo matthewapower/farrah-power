@@ -7,8 +7,6 @@ import Img from "gatsby-image"
 
 const BackgroundCover = styled.div`
   width: 100vw;
-  height: 100vh;
-  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,10 +14,6 @@ const BackgroundCover = styled.div`
   transition: opacity 2s ease;
   opacity: 0;
   z-index: -1;
-
-  @media (max-width: 768px) {
-    height: 90vh;
-  }
 
   &:first-child {
     opacity: 1;
@@ -29,7 +23,6 @@ const BackgroundCover = styled.div`
 const TopImage = styled(props => <Img {...props} />)`
   width: 500px;
   height: 600px;
-  position: relative;
   z-index: -1;
 
   @media (max-width: 768px) {
@@ -44,6 +37,7 @@ const BottomImage = styled(props => <Img {...props} />)`
   left: 0;
   width: 100vw;
   height: 100vh;
+  margin: 0;
   z-index: -1;
 `
 
@@ -54,6 +48,10 @@ const Card = styled(props => <Link {...props} />)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
 
   .gatsby-image-wrapper {
     transition: transform 0.5s ease;
