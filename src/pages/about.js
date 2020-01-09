@@ -157,7 +157,7 @@ class AboutPage extends React.Component {
           />
           <TextContainer>
             <h1>Meet Farrah</h1>
-            <p>For the past five years Farrah has been photographing weddings and elopments. She has found her niche in documentary style wedding photography because of the way it produces meaningful and honest imagery that gets better over time. Farrah and her husband Matt live in Atlanta, GA but continue to fall in love with the cities their travels bring them to.</p>
+            <p>For the past five years Farrah has been photographing weddings and elopements. She has found her niche in documentary style wedding photography because of the way it produces meaningful and honest imagery that gets better over time. Farrah and her husband Matt live in Atlanta, GA but continue to fall in love with the cities their travels bring them to.</p>
           </TextContainer>
         </Container>
         <CtaFooter />
