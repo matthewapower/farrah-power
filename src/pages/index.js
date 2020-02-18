@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useEffect, useRef} from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -20,6 +20,7 @@ const BackgroundCover = styled.div`
     z-index: 0;
   }
 `
+
 const TopImage = styled(props => <Img {...props} />)`
   width: 500px;
   height: 600px;
@@ -67,79 +68,71 @@ const Card = styled(props => <Link {...props} />)`
   }
 `
 
-class MoodBoard extends React.Component {
-  
-  componentDidMount() {
-    let slides = document.querySelectorAll('.slideContainer > div');
-    let activeSlide = 0;
+export default function Index(props) {
+  const data = props.data
+  const [activeSlide, setActiveSlide] = useState(0)
+  const requestRef = useRef()
+  const frames = useRef(0);
+  const animate = () => {
+    if (frames.current === 480) {
+      setActiveSlide(activeSlide => (activeSlide === slides.length - 1) ? 0 : activeSlide + 1);
+      frames.current = 0
+    }
 
-    setInterval(() => {
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.opacity = 0;
-        slides[i].style.zIndex = -1;
-      }
-      slides[activeSlide].style.opacity = 1;
-      slides[activeSlide].style.zIndex = 0;
-
-      if (activeSlide === slides.length - 1) {
-        activeSlide = 0;
-      } else {
-        activeSlide++;
-      }
-    }, 10000);
+    frames.current++;
+    requestRef.current = requestAnimationFrame(animate);
   }
+  const slides = [
+    {
+      url: "summerour-studio-wedding",
+      title: "Summerour Studio Wedding",
+      topImage: data.topImage1.childImageSharp.fixed,
+      bottomImage: data.bottomImage1.childImageSharp.fluid
+    },
+    {
+      url: "joshua-tree-elopement",
+      title: "Joshua Tree Elopement",
+      topImage: data.topImage2.childImageSharp.fixed,
+      bottomImage: data.bottomImage2.childImageSharp.fluid
+    },
+    {
+      url: "manzanita-oregon-couples-portraits",
+      title: "Manzanita Oregon Couples Portraits",
+      topImage: data.topImage3.childImageSharp.fixed,
+      bottomImage: data.bottomImage3.childImageSharp.fluid
+    }
+  ];
 
-  render() {
-    const data = this.props.data;
-    const images = [
-      {
-        url: "summerour-studio-wedding",
-        title: "Summerour Studio Wedding",
-        topImage: data.topImage1.childImageSharp.fixed,
-        bottomImage: data.bottomImage1.childImageSharp.fluid
-      },
-      {
-        url: "joshua-tree-elopement",
-        title: "Joshua Tree Elopement",
-        topImage: data.topImage2.childImageSharp.fixed,
-        bottomImage: data.bottomImage2.childImageSharp.fluid
-      },
-      {
-        url: "manzanita-oregon-couples-portraits",
-        title: "Manzanita Oregon Couples Portraits",
-        topImage: data.topImage3.childImageSharp.fixed,
-        bottomImage: data.bottomImage3.childImageSharp.fluid
-      }
-    ];
+  useEffect(() => {
+    requestRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(requestRef.current);
+  }, [])
 
-    return (
-      <Layout location={this.props.location} message="Photos Worth Keeping*">
-        <SEO title="Home" />
-        <div className="slideContainer">
-          {images.map((data) => (
-            <BackgroundCover key={data.url}>
-              <BottomImage 
-                fluid={data.bottomImage}
-                alt="#"
-                style={{
-                  position: "absolute"
-                }}
-              />
-              <Card to={"/" + data.url}>
-                <TopImage 
-                  fixed={data.topImage}
-                  objectFit="cover"
-                  objectPosition="50% 50%"
-                  alt="#"
-                />
-                <span>{data.title}</span>
-              </Card>
-            </BackgroundCover>
-          ))}
-        </div>
-      </Layout>
-    )
-  }
+  return (
+    <Layout location={props.location} message="Photos Worth Keeping*">
+      <SEO title="Home" />
+      <div className="slideContainer">
+        <BackgroundCover key={slides[activeSlide].url}>
+          <BottomImage 
+            fluid={slides[activeSlide].bottomImage}
+            alt="#"
+            style={{
+              position: "absolute"
+            }}
+          />
+          <Card to={"/" + slides[activeSlide].url}>
+            <TopImage 
+              fixed={slides[activeSlide].topImage}
+              objectFit="cover"
+              objectPosition="50% 50%"
+              alt="#"
+            />
+            <span>{slides[activeSlide].title}</span>
+          </Card>
+        </BackgroundCover>
+      </div>
+    </Layout>
+  )
 }
 
 export const pageQuery = graphql`
@@ -195,4 +188,3 @@ export const pageQuery = graphql`
   }
 `
 
-export default MoodBoard
