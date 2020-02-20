@@ -5,6 +5,7 @@ import SEO from "../components/seo"
 import styled from "styled-components"
 import Img from "gatsby-image"
 
+
 const BackgroundCover = styled.div`
   width: 100vw;
   display: flex;
@@ -12,19 +13,13 @@ const BackgroundCover = styled.div`
   justify-content: center;
   display: flex;
   transition: opacity 2s ease;
-  opacity: 0;
-  z-index: -1;
-
-  &:first-child {
-    opacity: 1;
-    z-index: 0;
-  }
+  opacity: ${props => props.active ? '1' : '0'};
+  pointer-events: ${props => props.active ? 'auto' : 'none'};
 `
 
 const TopImage = styled(props => <Img {...props} />)`
   width: 500px;
   height: 600px;
-  z-index: -1;
 
   @media (max-width: 768px) {
     width: 80vw;
@@ -39,7 +34,6 @@ const BottomImage = styled(props => <Img {...props} />)`
   width: 100vw;
   height: 100vh;
   margin: 0;
-  z-index: -1;
 `
 
 const Card = styled(props => <Link {...props} />)`
@@ -111,26 +105,29 @@ export default function Index(props) {
   return (
     <Layout location={props.location} message="Photos Worth Keeping*">
       <SEO title="Home" />
-      <div className="slideContainer">
-        <BackgroundCover key={slides[activeSlide].url}>
-          <BottomImage 
-            fluid={slides[activeSlide].bottomImage}
-            alt="#"
-            style={{
-              position: "absolute"
-            }}
-          />
-          <Card to={"/" + slides[activeSlide].url}>
-            <TopImage 
-              fixed={slides[activeSlide].topImage}
-              objectFit="cover"
-              objectPosition="50% 50%"
+      {slides.map((slide, index) => {
+        console.log(`index: ${index}, active: ${activeSlide}`)
+        return (
+          <BackgroundCover active={index === activeSlide} key={slide.url}>
+            <BottomImage 
+              fluid={slide.bottomImage}
               alt="#"
+              style={{
+                position: "absolute"
+              }}
             />
-            <span>{slides[activeSlide].title}</span>
-          </Card>
-        </BackgroundCover>
-      </div>
+            <Card to={"/" + slide.url}>
+              <TopImage 
+                fixed={slide.topImage}
+                objectFit="cover"
+                objectPosition="50% 50%"
+                alt="#"
+              />
+              <span>{slide.title}</span>
+            </Card>
+          </BackgroundCover>
+        )}
+      )}
     </Layout>
   )
 }
