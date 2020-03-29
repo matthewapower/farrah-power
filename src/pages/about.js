@@ -1,36 +1,13 @@
 import React from "react"
-import styled from "@emotion/styled"
-import tw from 'tailwind.macro'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Hero from "../components/Hero"
 import BtnPrimary from "../components/BtnPrimary"
+import HeadlineFeature from "../components/HeadlineFeature"
+import CtaBanner from "../components/CtaBanner"
 
 import moodboard from "../../content/assets/moodboard.png"
-
-const TopBar = styled.div`
-  width: 100%;
-  padding: 30px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  min-height: 300px;
-  border-bottom: 1px solid black;
-
-  h1 {
-    font-size: 60px;
-    font-weight: 500;
-  }
-`
-
-const ImageFeature = styled.div`
-  width: 100%;
-  min-height: 80vh;
-  background-image: url(${moodboard});
-  background-size: cover;
-  background-position: center center;
-  ${tw`border-b border-black`}
-`
 
 export default function AboutPage() {
   const sliderImages = [
@@ -42,16 +19,11 @@ export default function AboutPage() {
   return (
     <Layout>
       <SEO title="About" />
-      <TopBar>
-        <h1>About Farrah</h1>
-      </TopBar>
-      <ImageFeature />
-      <section className="border-b border-black py-24 px-4 text-center">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-display-serif leading-relaxed md:leading-loose text-3xl md:text-5xl">At this moment I am probably...</h2>
-          <h3 className="font-display-sans leading-relaxed md:leading-loose text-3xl md:text-5xl">Planning next travels, reacting to food, or meticulously tracking incremental changes in nature</h3>
-        </div>
-      </section>
+      <Hero title="About Farrah" image={moodboard}/>
+      <HeadlineFeature 
+        heading="At this moment I am probably..." 
+        subheading="Planning next travels, reacting to food, or meticulously tracking incremental changes in nature"
+      />
       <section className="flex flex-col md:flex-row border-b border-black">
         <div className="bg-tan h-48 md:min-h-screen w-full md:w-1/3 border-black border-b md:border-b-0" />
         <div className="w-full md:w-2/3 p-10 md:border-l border-black flex flex-col justify-end">
@@ -72,10 +44,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="border-b border-black flex flex-col md:flex-row items-center justify-between p-4 hidden md:flex">
-        <h2 className="text-center md:text-left text-xl md:text-base font-body tracking-wide mb-4 md:mb-0 w-64 md:w-full">I am based in Atlanta but love to travel for clients</h2>
-        <BtnPrimary to="/contact">Contact</BtnPrimary>
-      </section>
+      <CtaBanner>I am based in Atlanta but love to travel for clients</CtaBanner>
       <section className="py-24 flex flex-col items-center">
         <h2 className="font-display-sans text-center text-3xl md:text-5xl mb-8">Think we would work well together?</h2>
         <BtnPrimary to="/contact">Contact Me</BtnPrimary>
