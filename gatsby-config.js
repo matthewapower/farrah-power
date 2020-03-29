@@ -78,6 +78,9 @@ module.exports = {
       resolve: `gatsby-plugin-styled-components`
     },
     {
+      resolve: `gatsby-theme-tailwindcss`,
+    },
+    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         typekit: {
