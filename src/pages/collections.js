@@ -11,12 +11,11 @@ export default function AboutPage() {
   const collections = [
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585512052/Farrah/bg-2_1_tmx4n2.png',
-      overline: 'Collection One',
-      title: 'The Standard',
+      title: 'Collection One',
       description: 'The most popular collection. This collection is perfect for documenting the highlights of the day.',
       price: '$3,000',
       features: [
-        'Seven Hours of Photography',
+        'Six Hours of Photography',
         'High resolution image files with print rights',
         'Online Gallery with Print Ordering'
       ],
@@ -24,12 +23,11 @@ export default function AboutPage() {
     },
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585512052/Farrah/bg-2_1_tmx4n2.png',
-      overline: 'Collection One',
-      title: 'The Standard',
+      title: 'Collection Two',
       description: 'The most popular collection. This collection is perfect for documenting the highlights of the day.',
-      price: '$3,000',
+      price: '$4,000',
       features: [
-        'Seven Hours of Photography',
+        'Eight Hours of Photography',
         'High resolution image files with print rights',
         'Online Gallery with Print Ordering'
       ],
@@ -37,14 +35,14 @@ export default function AboutPage() {
     },
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585512052/Farrah/bg-2_1_tmx4n2.png',
-      overline: 'Collection One',
-      title: 'The Standard',
+      title: 'Collection Three',
       description: 'The most popular collection. This collection is perfect for documenting the highlights of the day.',
-      price: '$3,000',
+      price: '$5,700',
       features: [
-        'Seven Hours of Photography',
+        'Ten Hours of Photography',
         'High resolution image files with print rights',
-        'Online Gallery with Print Ordering'
+        'Online Gallery with Print Ordering',
+        'Includes a second photographer'
       ],
       cta: '/'
     }
@@ -63,13 +61,12 @@ export default function AboutPage() {
             <div className="w-full md:w-1/3 h-64 md:h-auto bg-cover bg-center" style={{backgroundImage: `url(${c.image})`}}/>
             <div className="md:mx-4 md:border-t border-b border-black md:w-2/3 py-8 md:pt-40 flex flex-col md:flex-row flex-wrap items-start">
               <div className="md:w-1/2">
-                <h2 className="font-heading uppercase text-xl mb-4">{c.overline}</h2>
-                <h3 className="font-display-serif text-3xl md:text-5xl mb-4">{c.title}</h3>
+                <h2 className="font-display-serif text-3xl md:text-5xl mb-4">{c.title}</h2>
+                <p className="font-display-sans text-3xl mb-4">{c.price}</p>
                 <p className="mb-8">{c.description}</p>
               </div>
               <div className="md:w-1/2">
-                <p className="font-display-sans text-3xl mb-8">{c.price}</p>
-                <h4 className="font-heading uppercase text-lg mb-4">Includes</h4>
+                <h4 className="font-heading uppercase text-lg mb-4 md:mt-16">Includes</h4>
                 <ul className="mb-8 md:mb-0">
                   {c.features.map((f,i) => {
                     return <li key={i} className="mb-0">{f}</li>
