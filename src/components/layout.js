@@ -22,9 +22,9 @@ class Layout extends React.Component {
         >
           {children}
         </main>
-        {/* <footer>
+        <footer className="text-center border-t border-black">
           © {new Date().getFullYear()}, Farrah Power
-        </footer> */}
+        </footer>
       </div>
     )
   }
