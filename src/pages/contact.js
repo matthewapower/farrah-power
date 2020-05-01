@@ -12,11 +12,6 @@ const ChoiceContainer = styled.section`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 
   @media (max-width: 768px) {
     margin: 0 5vw;

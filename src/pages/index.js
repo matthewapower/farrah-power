@@ -1,20 +1,70 @@
-import React, {useState, useEffect, useRef} from "react"
+import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import styled from "styled-components"
+import tw from "tailwind.macro"
 import Img from "gatsby-image"
+import CtaBanner from "../components/CtaBanner"
+import BtnPrimary from "../components/BtnPrimary"
+
+const Container = styled.section`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 100px;
+  ${tw`border-b border-black pt-12`}
+
+  a {
+    font-family: garamond-premier-pro-display, serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 80px;
+    margin-bottom: 0.5em;
+    text-decoration: none;
+    color: hsla(0,0%,0%,0.8);
+    position: relative;
+    text-align: center;
+
+    @media (max-width: 768px) {
+      font-size: 50px;
+      line-height: 58px;
+      padding: 30px 20px;
+      margin: 0 20px;
+      border: 2px solid hsla(0,0%,0%,0.8);
+    }
+
+    &:after {
+      content: '';
+      height: 4px;
+      width: 180px;
+      display: block;
+      background-color: hsla(0,0%,0%,0.8);
+      position: absolute;
+      left: calc(50% - 90px);
+      bottom: 0;
+      transition: transform 1s ease;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    &:hover:after {
+      transform: scaleX(2);
+    }
+  }
+`;
 
 
 const BackgroundCover = styled.div`
   width: 100vw;
+  height: 100vh;
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   display: flex;
   transition: opacity 2s ease;
-  opacity: ${props => props.active ? '1' : '0'};
-  pointer-events: ${props => props.active ? 'auto' : 'none'};
 `
 
 const TopImage = styled(props => <Img {...props} />)`
@@ -64,18 +114,12 @@ const Card = styled(props => <Link {...props} />)`
 
 export default function Index(props) {
   const data = props.data
-  const [activeSlide, setActiveSlide] = useState(0)
-  const requestRef = useRef()
-  const frames = useRef(0);
-  const animate = () => {
-    if (frames.current === 480) {
-      setActiveSlide(activeSlide => (activeSlide === slides.length - 1) ? 0 : activeSlide + 1);
-      frames.current = 0
-    }
-
-    frames.current++;
-    requestRef.current = requestAnimationFrame(animate);
-  }
+  let sliderImages = [
+    'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585508209/Farrah/slider-1_wcdg7q.png',
+    'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585508210/Farrah/slider-3_nkk1pi.png',
+    'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585508210/Farrah/slider-4_ctmw3j.png',
+    'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585508211/Farrah/Slider-2_lgqomj.png'
+  ]
   const slides = [
     {
       url: "intimate-backyard-wedding",
@@ -84,86 +128,76 @@ export default function Index(props) {
       bottomImage: data.bottomImage4.childImageSharp.fluid
     },
     {
-      url: "summerour-studio-wedding",
-      title: "Summerour Studio Wedding",
+      url: "joshua-tree-elopement",
+      title: "Joshua Tree Elopement",
       topImage: data.topImage1.childImageSharp.fixed,
       bottomImage: data.bottomImage1.childImageSharp.fluid
     },
     {
-      url: "joshua-tree-elopement",
-      title: "Joshua Tree Elopement",
+      url: "summerour-studio-wedding",
+      title: "Summerour Studio Wedding",
       topImage: data.topImage2.childImageSharp.fixed,
       bottomImage: data.bottomImage2.childImageSharp.fluid
-    },
-    {
-      url: "manzanita-oregon-couples-portraits",
-      title: "Manzanita Oregon Couples Portraits",
-      topImage: data.topImage3.childImageSharp.fixed,
-      bottomImage: data.bottomImage3.childImageSharp.fluid
     }
   ];
-
-  useEffect(() => {
-    requestRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(requestRef.current);
-  }, [])
 
   return (
     <Layout location={props.location} message="Photos Worth Keeping*">
       <SEO title="Home" />
-      {slides.map((slide, index) => {
-        return (
-          <BackgroundCover active={index === activeSlide} key={slide.url}>
-            <BottomImage 
-              fluid={slide.bottomImage}
-              alt="#"
-              style={{
-                position: "absolute"
-              }}
-            />
-            <Card to={"/" + slide.url}>
-              <TopImage 
-                fixed={slide.topImage}
-                objectFit="cover"
-                objectPosition="50% 50%"
-                alt="#"
+      <div className="flex flex-col">
+        {slides.map((slide, index) => {
+          return (
+            <BackgroundCover key={slide.url}>
+              <BottomImage 
+                fluid={slide.bottomImage}
+                alt={slide.title}
+                style={{
+                  position: "absolute"
+                }}
               />
-              <span>{slide.title}</span>
-            </Card>
-          </BackgroundCover>
+              <Card to={"/" + slide.url}>
+                <TopImage 
+                  fixed={slide.topImage}
+                  objectFit="cover"
+                  objectPosition="50% 50%"
+                  alt={slide.title}
+                />
+                <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl -mx-24">{slide.title}</h2>
+              </Card>
+            </BackgroundCover>
+          )}
         )}
-      )}
+      </div>
+      <Container>
+        <Link to="/work">View More Work</Link>
+      </Container>
+      <CtaBanner>I am based in Atlanta but am happy to pack my suitcase and travel to your city!</CtaBanner>
+      <section className="py-24 flex flex-col items-center">
+        <h2 className="font-display-sans text-center text-3xl md:text-5xl mb-8">Think we would work well together?</h2>
+        <BtnPrimary to="/contact">Contact Me</BtnPrimary>
+        <div className="mt-12 w-screen flex">
+          {sliderImages.map((s,i) => {
+            return (
+              <div key={i} style={{backgroundImage: `url(${s})`}} className={`bg-cover bg-center h-24 md:h-64 w-1/2 md:w-1/4 ${i === sliderImages.length - 1 ? 'mr-0' : 'mr-4 md:mr-12'}`}/>
+            )
+          })}
+        </div>
+      </section>
     </Layout>
   )
 }
 
 export const pageQuery = graphql`
   {
-    topImage1: file(absolutePath: {regex: "/front-1.jpg/"}) {
+    topImage1: file(absolutePath: {regex: "/front-jt.png/"}) {
       childImageSharp {
-        fixed(width: 1000) {
+        fixed(width: 430) {
           srcSet
           src
         }
       }
     }
-    bottomImage1: file(absolutePath: {regex: "/back-1.jpg/"}) {
-      childImageSharp {
-        fluid(maxWidth: 2000) {
-          src
-          srcSet
-        }
-      }
-    }
-    topImage2: file(absolutePath: {regex: "/front-2.jpg/"}) {
-      childImageSharp {
-        fixed(width: 1000) {
-          srcSet
-          src
-        }
-      }
-    }
-    bottomImage2: file(absolutePath: {regex: "/back-2.jpg/"}) {
+    bottomImage1: file(absolutePath: {regex: "/back-jt.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           src
@@ -171,15 +205,15 @@ export const pageQuery = graphql`
         }
       }
     }
-    topImage3: file(absolutePath: {regex: "/front-3.jpg/"}) {
+    topImage2: file(absolutePath: {regex: "/front-so.png/"}) {
       childImageSharp {
-        fixed(width: 1000) {
+        fixed(width: 430) {
           srcSet
           src
         }
       }
     }
-    bottomImage3: file(absolutePath: {regex: "/back-3.jpg/"}) {
+    bottomImage2: file(absolutePath: {regex: "/back-so.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           src
@@ -189,7 +223,7 @@ export const pageQuery = graphql`
     }
     topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
       childImageSharp {
-        fixed(width: 1000) {
+        fixed(width: 430) {
           srcSet
           src
         }
