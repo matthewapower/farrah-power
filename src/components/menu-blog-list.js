@@ -44,6 +44,9 @@ export default function MenuBlogList(props) {
   `)
   return (
     <SubList collapsed={props.collapsed}>
+      <SubLink>
+        <Link to="/work">View All</Link>
+      </SubLink>
       {data.allMarkdownRemark.edges.map(({ node }) => (
         <SubLink key={node.id}>
           <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
