@@ -78,6 +78,12 @@ export default function Index(props) {
   }
   const slides = [
     {
+      url: "intimate-backyard-wedding",
+      title: "Intimate Backyard Wedding",
+      topImage: data.topImage4.childImageSharp.fixed,
+      bottomImage: data.bottomImage4.childImageSharp.fluid
+    },
+    {
       url: "summerour-studio-wedding",
       title: "Summerour Studio Wedding",
       topImage: data.topImage1.childImageSharp.fixed,
@@ -106,7 +112,6 @@ export default function Index(props) {
     <Layout location={props.location} message="Photos Worth Keeping*">
       <SEO title="Home" />
       {slides.map((slide, index) => {
-        console.log(`index: ${index}, active: ${activeSlide}`)
         return (
           <BackgroundCover active={index === activeSlide} key={slide.url}>
             <BottomImage 
@@ -174,7 +179,23 @@ export const pageQuery = graphql`
         }
       }
     }
-    bottomImage3: file(absolutePath: {regex: "/back-4.jpg/"}) {
+    bottomImage3: file(absolutePath: {regex: "/back-3.jpg/"}) {
+      childImageSharp {
+        fluid(maxWidth: 2000) {
+          src
+          srcSet
+        }
+      }
+    }
+    topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
+      childImageSharp {
+        fixed(width: 1000) {
+          srcSet
+          src
+        }
+      }
+    }
+    bottomImage4: file(absolutePath: {regex: "/back-4.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 2000) {
           src

@@ -121,8 +121,9 @@ const MessageTitle = styled.h1`
 `
 
 const Burger = styled.button`
-  height: 15px;
-  width: 15px;
+  height: 24px;
+  width: 24px;
+  padding: 12px;
   position: relative;
   transition: transform 0.5s ease;
   transform: ${props => props.navHidden ? "rotate(0)" : "rotate(135deg)"};
@@ -155,7 +156,7 @@ class Menu extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
     this.state = {
       collapsed: true,
-      navHidden: false,
+      navHidden: true,
       scrollY: 0
     };
   }
@@ -164,8 +165,7 @@ class Menu extends React.Component {
     if (window.innerWidth > 768) {
       this.setState({scrollY: window.scrollY})
       window.addEventListener('scroll', this.handleScroll);
-    } else if (window.innerWidth <= 768) {
-      this.setState({navHidden: true})
+      this.setState({navHidden: false})
     }
   }
 
