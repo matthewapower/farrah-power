@@ -67,7 +67,7 @@ const BackgroundCover = styled.div`
   transition: opacity 2s ease;
 `
 
-const TopImage = styled(props => <Img {...props} />)`
+const TopImage = styled(Img)`
   width: 500px;
   height: 600px;
 
@@ -77,7 +77,7 @@ const TopImage = styled(props => <Img {...props} />)`
   }
 `
 
-const BottomImage = styled(props => <Img {...props} />)`
+const BottomImage = styled(Img)`
   position: absolute;
   top: 0;
   left: 0;
@@ -149,20 +149,23 @@ export default function Index(props) {
           return (
             <BackgroundCover key={slide.url}>
               <BottomImage 
+                backgroundColor="#DB3225"
                 fluid={slide.bottomImage}
                 alt={slide.title}
+                fadeIn={false}
                 style={{
                   position: "absolute"
                 }}
               />
               <Card to={"/" + slide.url}>
                 <TopImage 
+                  backgroundColor="#DB3225"
                   fixed={slide.topImage}
                   objectFit="cover"
                   objectPosition="50% 50%"
                   alt={slide.title}
                 />
-                <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl md:-mx-24">{slide.title}</h2>
+                <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl md:-mx-40">{slide.title}</h2>
               </Card>
             </BackgroundCover>
           )}
@@ -192,48 +195,42 @@ export const pageQuery = graphql`
     topImage1: file(absolutePath: {regex: "/front-jt.png/"}) {
       childImageSharp {
         fixed(width: 430, quality: 100) {
-          srcSet
-          src
+          ...GatsbyImageSharpFixed
         }
       }
     }
     bottomImage1: file(absolutePath: {regex: "/back-jt.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          src
-          srcSet
+          ...GatsbyImageSharpFluid
         }
       }
     }
     topImage2: file(absolutePath: {regex: "/front-so.png/"}) {
       childImageSharp {
         fixed(width: 430, quality: 100) {
-          srcSet
-          src
+          ...GatsbyImageSharpFixed
         }
       }
     }
     bottomImage2: file(absolutePath: {regex: "/back-so.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          src
-          srcSet
+          ...GatsbyImageSharpFluid
         }
       }
     }
     topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
       childImageSharp {
         fixed(width: 430, quality: 100) {
-          srcSet
-          src
+          ...GatsbyImageSharpFixed
         }
       }
     }
     bottomImage4: file(absolutePath: {regex: "/back-4.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          src
-          srcSet
+          ...GatsbyImageSharpFluid
         }
       }
     }
