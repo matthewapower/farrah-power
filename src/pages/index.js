@@ -162,7 +162,7 @@ export default function Index(props) {
                   objectPosition="50% 50%"
                   alt={slide.title}
                 />
-                <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl -mx-24">{slide.title}</h2>
+                <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl md:-mx-24">{slide.title}</h2>
               </Card>
             </BackgroundCover>
           )}
@@ -191,7 +191,7 @@ export const pageQuery = graphql`
   {
     topImage1: file(absolutePath: {regex: "/front-jt.png/"}) {
       childImageSharp {
-        fixed(width: 430) {
+        fixed(width: 430, quality: 100) {
           srcSet
           src
         }
@@ -199,7 +199,7 @@ export const pageQuery = graphql`
     }
     bottomImage1: file(absolutePath: {regex: "/back-jt.png/"}) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 2000, quality: 100) {
           src
           srcSet
         }
@@ -207,7 +207,7 @@ export const pageQuery = graphql`
     }
     topImage2: file(absolutePath: {regex: "/front-so.png/"}) {
       childImageSharp {
-        fixed(width: 430) {
+        fixed(width: 430, quality: 100) {
           srcSet
           src
         }
@@ -215,7 +215,7 @@ export const pageQuery = graphql`
     }
     bottomImage2: file(absolutePath: {regex: "/back-so.png/"}) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 2000, quality: 100) {
           src
           srcSet
         }
@@ -223,7 +223,7 @@ export const pageQuery = graphql`
     }
     topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
       childImageSharp {
-        fixed(width: 430) {
+        fixed(width: 430, quality: 100) {
           srcSet
           src
         }
@@ -231,7 +231,7 @@ export const pageQuery = graphql`
     }
     bottomImage4: file(absolutePath: {regex: "/back-4.jpg/"}) {
       childImageSharp {
-        fluid(maxWidth: 2000) {
+        fluid(maxWidth: 2000, quality: 100) {
           src
           srcSet
         }
