@@ -229,7 +229,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    bottomImage4: file(absolutePath: {regex: "/back-4.jpg/"}) {
+    bottomImage4: file(absolutePath: {regex: "/back-4.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
           src
