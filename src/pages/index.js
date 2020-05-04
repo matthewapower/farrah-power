@@ -124,19 +124,19 @@ export default function Index(props) {
     {
       url: "intimate-backyard-wedding",
       title: "Intimate Backyard Wedding",
-      topImage: data.topImage4.childImageSharp.fixed,
+      topImage: data.topImage4.childImageSharp.fluid,
       bottomImage: data.bottomImage4.childImageSharp.fluid
     },
     {
       url: "joshua-tree-elopement",
       title: "Joshua Tree Elopement",
-      topImage: data.topImage1.childImageSharp.fixed,
+      topImage: data.topImage1.childImageSharp.fluid,
       bottomImage: data.bottomImage1.childImageSharp.fluid
     },
     {
       url: "summerour-studio-wedding",
       title: "Summerour Studio Wedding",
-      topImage: data.topImage2.childImageSharp.fixed,
+      topImage: data.topImage2.childImageSharp.fluid,
       bottomImage: data.bottomImage2.childImageSharp.fluid
     }
   ];
@@ -149,7 +149,6 @@ export default function Index(props) {
           return (
             <BackgroundCover key={slide.url}>
               <BottomImage 
-                backgroundColor="#DB3225"
                 fluid={slide.bottomImage}
                 alt={slide.title}
                 fadeIn={false}
@@ -159,8 +158,7 @@ export default function Index(props) {
               />
               <Card to={"/" + slide.url}>
                 <TopImage 
-                  backgroundColor="#DB3225"
-                  fixed={slide.topImage}
+                  fluid={slide.topImage}
                   objectFit="cover"
                   objectPosition="50% 50%"
                   alt={slide.title}
@@ -194,8 +192,8 @@ export const pageQuery = graphql`
   {
     topImage1: file(absolutePath: {regex: "/front-jt.png/"}) {
       childImageSharp {
-        fixed(width: 430, quality: 100) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 430, quality: 100) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
@@ -208,8 +206,8 @@ export const pageQuery = graphql`
     }
     topImage2: file(absolutePath: {regex: "/front-so.png/"}) {
       childImageSharp {
-        fixed(width: 430, quality: 100) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 430, quality: 100) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
@@ -222,8 +220,8 @@ export const pageQuery = graphql`
     }
     topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
       childImageSharp {
-        fixed(width: 430, quality: 100) {
-          ...GatsbyImageSharpFixed
+        fluid(maxWidth: 430, quality: 100) {
+          ...GatsbyImageSharpFluid
         }
       }
     }
