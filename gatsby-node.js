@@ -22,6 +22,12 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
+        allShopifyProduct(sort: { fields: [title] }) {
+          nodes {
+            id
+            handle
+          }
+        }
       }
     `
   )
@@ -44,6 +50,17 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: post.node.fields.slug,
         previous,
         next,
+      },
+    })
+  })
+
+  // Create Product page
+  result.data.allShopifyProduct.nodes.forEach(node => {
+    createPage({
+      path: `/product/${node.handle}`,
+      component: path.resolve(`./src/templates/product.js`),
+      context: {
+        productId: node.id,
       },
     })
   })
