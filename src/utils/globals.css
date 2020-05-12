@@ -3,3 +3,10 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@responsive {
+  .h-screen-75 {
+    height: 75vh;
+  }
+}
+  

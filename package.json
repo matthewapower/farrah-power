@@ -29,6 +29,7 @@
     "gatsby-remark-smartypants": "^2.1.2",
     "gatsby-source-filesystem": "^2.1.7",
     "gatsby-source-shopify": "^3.2.1",
+    "gatsby-theme-shopify-manager": "^0.1.4",
     "gatsby-theme-tailwindcss": "^1.1.0",
     "gatsby-transformer-remark": "^2.6.10",
     "gatsby-transformer-sharp": "^2.2.5",
