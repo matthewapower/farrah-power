@@ -4,14 +4,14 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import {
+  useCart,
   useCartItems,
-  useCartTotals,
   useAddItemToCart,
   useRemoveItemFromCart,
-  useCheckout,
-} from "../context/StoreContext"
+  useCheckoutUrl,
+} from "gatsby-theme-shopify-manager"
 
-const CartPage = () => {
+export default function Cart() {
   const {
     allShopifyProductVariant: { nodes: variants },
     allShopifyProduct: { nodes: products },
@@ -43,9 +43,9 @@ const CartPage = () => {
   `)
 
   const lineItems = useCartItems()
-  const { tax, total } = useCartTotals()
+  const cart = useCart()
   const removeFromCart = useRemoveItemFromCart()
-  const checkout = useCheckout()
+  const checkout = useCheckoutUrl()
   const addItemToCart = useAddItemToCart()
 
   const betterProductHandles = products.map(({ handle, variants }) => {
@@ -76,49 +76,36 @@ const CartPage = () => {
   }
 
   const LineItem = ({ item }) => (
-    <div
-      sx={{
-        display: "grid",
-        gridGap: "15px",
-        gridTemplateColumns: "120px 2fr 80px 80px",
-        alignItems: "center",
-      }}
-    >
-      <div>
-        <div sx={{ padding: 1, border: "1px solid gray" }}>
-          <Img fluid={getImageFluidForVariant(item.variant.id)} />
+    <div className="grid grid-cols-6 items-center border-b border-black py-4" style={{justifyItems: "center"}}>
+      <div className="flex col-span-4" style={{justifySelf: "start"}}>
+        <Img fluid={getImageFluidForVariant(item.variant.id)} className="p-1 border border-gray-300 h-24 w-24 mr-4"/>
+        <div>
+          <Link
+            to={`/product/${getHandleForVariant(item.variant.id)}`}
+            className="underline font-heading"
+          >
+            {item.title}
+          </Link>
+          <ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: "none" }}>
+            {item.variant.selectedOptions.map(({ name, value }) => (
+              <li key={name} className="font-heading text-xs mb-1">
+                {name}: {value}
+              </li>
+            ))}
+            <li key="quantity" className="font-heading text-xs mb-0 self-center">
+              Quantity: {item.quantity}
+            </li>
+          </ul>
         </div>
       </div>
-      <div>
-        <Link
-          url={`/product/${getHandleForVariant(item.variant.id)}`}
-          sx={{ fontSize: 3, m: 0, fontWeight: 700 }}
-        >
-          {item.title}
-        </Link>
-        <ul sx={{ mt: 2, mb: 0, padding: 0, listStyle: "none" }}>
-          {item.variant.selectedOptions.map(({ name, value }) => (
-            <li key={name}>
-              <strong>{name}: </strong>
-              {value}
-            </li>
-          ))}
-          <li key="quantity">
-            <strong>Quantity: </strong>
-            {item.quantity}
-          </li>
-        </ul>
-      </div>
-      <button variant="link" onClick={() => removeFromCart(item.id)}>
-        Delete
-      </button>
-      <span
-        sx={{
-          fontSize: 4,
-          fontWeight: 700,
-          marginLeft: "auto",
-        }}
+      <button 
+        variant="link"
+        className="font-heading text-xs uppercase px-1 border border-black self-center rounded inline-block hover:opacity-50"
+        onClick={() => removeFromCart(item.variant.id)}
       >
+        Remove
+      </button>
+      <span>
         ${Number(item.variant.priceV2.amount).toFixed(2)}
       </span>
     </div>
@@ -127,23 +114,10 @@ const CartPage = () => {
   const emptyCart = (
     <Layout>
       <SEO title="Cart" />
-      <h1>Cart</h1>
-      <p>Your shopping cart is empty.</p>
-      <button
-        sx={{ mt: 4 }}
-        onClick={() =>
-          addItemToCart(
-            variants[Math.floor(Math.random() * (variants.length - 1))]
-              .shopifyId,
-            1
-          )
-        }
-      >
-        <span role="img" aria-label="Dice Emoji">
-          🎲
-        </span>{" "}
-        Random item plz
-      </button>
+      <div className="min-h-screen">
+        <h1 className="text-center mx-auto my-32 text-3xl">Cart</h1>
+        <p className="text-center">Your shopping cart is empty.</p>
+      </div>
     </Layout>
   )
 
@@ -152,41 +126,32 @@ const CartPage = () => {
   ) : (
     <Layout>
       <SEO title="Cart" />
-      <h1>Cart</h1>
-      {lineItems.map(item => (
-        <React.Fragment key={item.id}>
-          <LineItem key={item.id} item={item} />
-          <hr sx={{ my: 3 }} />
-        </React.Fragment>
-      ))}
-      <div sx={{ display: "flex" }}>
-        <div sx={{ marginLeft: "auto", minWidth: "10rem", p: 4 }}>
-          <h3 sx={{ mt: 0, mb: 3 }}>Cart Summary</h3>
-          <hr />
-
-          <div gap={1} columns={2} sx={{ my: 3 }}>
+      <h1 className="text-center mx-auto my-32 text-3xl">Cart</h1>
+      <div className="min-h-screen">
+        <div className="max-w-screen-lg mx-auto mb-12">
+          {lineItems.map(item => (
+            <React.Fragment key={item.id}>
+              <LineItem key={item.id} item={item} />
+            </React.Fragment>
+          ))}
+        </div>
+        <h3 className="max-w-screen-lg mx-auto font-heading uppercase mb-4">Cart Summary</h3>
+        <div className="flex max-w-screen-lg mx-auto items-center justify-between w-full">
+          <div className="grid grid-cols-2 gap-4">
             <span>Subtotal:</span>
-            <span sx={{ marginLeft: "auto" }}>{total}</span>
+            <span sx={{ marginLeft: "auto" }}>${cart.totalPrice}</span>
             <span>Shipping:</span>
             <span sx={{ marginLeft: "auto" }}> - </span>
-            <span>Tax: </span>
-            <span sx={{ marginLeft: "auto" }}>{tax}</span>
-          </div>
-
-          <hr />
-          <div gap={1} columns={2}>
             <span variant="bold">Estimated Total:</span>
             <span variant="bold" sx={{ marginLeft: "auto" }}>
-              {total}
+              ${cart.totalPrice}
             </span>
           </div>
-          <button sx={{ mt: 4, width: "100%" }} onClick={checkout}>
-            Checkout
-          </button>
+          <a className="font-heading text-white bg-black px-4 py-2 rounded hover:opacity-50" href={checkout} target="_blank" rel="noopener noreferrer">
+            Complete My Order
+          </a>
         </div>
       </div>
     </Layout>
   )
 }
-
-export default CartPage

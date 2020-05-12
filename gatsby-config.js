@@ -84,13 +84,7 @@ module.exports = {
       resolve: `gatsby-theme-tailwindcss`,
     },
     {
-      resolve: `gatsby-plugin-env-variables`,
-      options: {
-        whitelist: ["SHOP_NAME", "SHOP_TOKEN"],
-      },
-    },
-    {
-      resolve: `gatsby-source-shopify`,
+      resolve: `gatsby-theme-shopify-manager`,
       options: {
         shopName: process.env.SHOP_NAME,
         accessToken: process.env.SHOP_TOKEN,

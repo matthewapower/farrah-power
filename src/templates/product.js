@@ -7,7 +7,7 @@ import tw from "tailwind.macro"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
 import { prepareVariantsWithOptions, prepareVariantsImages } from "./utilities"
-import { useAddItemToCart } from "../context/StoreContext"
+import {useAddItemToCart, useCartCount} from 'gatsby-theme-shopify-manager';
 import OptionPicker from "./components/optionPicker"
 
 const DescWrapper = styled.div`
