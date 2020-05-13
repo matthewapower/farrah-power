@@ -27,7 +27,7 @@ const SubLink = styled.li`
 export default function MenuBlogList(props) {
   const data = useStaticQuery(graphql`
     query MenuLinkQuery {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}) {
         edges {
           node {
             frontmatter {
