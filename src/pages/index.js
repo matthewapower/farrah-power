@@ -161,6 +161,7 @@ export default function Index(props) {
                   fluid={slide.topImage}
                   objectFit="cover"
                   objectPosition="50% 50%"
+                  backgroundColor="#F6F1EC"
                   alt={slide.title}
                 />
                 <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl md:-mx-40">{slide.title}</h2>
@@ -179,7 +180,7 @@ export default function Index(props) {
         <div className="mt-12 w-screen flex">
           {sliderImages.map((s,i) => {
             return (
-              <div key={i} style={{backgroundImage: `url(${s})`}} className={`bg-cover bg-center h-24 md:h-64 w-1/2 md:w-1/4 ${i === sliderImages.length - 1 ? 'mr-0' : 'mr-4 md:mr-12'}`}/>
+              <div key={i} style={{backgroundImage: `url(${s})`}} backgroundColor="#F6F1EC" className={`bg-cover bg-center h-24 md:h-64 w-1/2 md:w-1/4 ${i === sliderImages.length - 1 ? 'mr-0' : 'mr-4 md:mr-12'}`}/>
             )
           })}
         </div>
@@ -193,42 +194,42 @@ export const pageQuery = graphql`
     topImage1: file(absolutePath: {regex: "/front-jt.png/"}) {
       childImageSharp {
         fluid(maxWidth: 430, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
     bottomImage1: file(absolutePath: {regex: "/back-jt.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
     topImage2: file(absolutePath: {regex: "/front-so.png/"}) {
       childImageSharp {
         fluid(maxWidth: 430, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
     bottomImage2: file(absolutePath: {regex: "/back-so.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
     topImage4: file(absolutePath: {regex: "/front-4.jpg/"}) {
       childImageSharp {
         fluid(maxWidth: 430, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
     bottomImage4: file(absolutePath: {regex: "/back-4.png/"}) {
       childImageSharp {
         fluid(maxWidth: 2000, quality: 100) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_noBase64
         }
       }
     }
