@@ -9,7 +9,7 @@ import BtnPrimary from "../components/BtnPrimary"
 export default function Work() {
   const data = useStaticQuery(graphql`
     query WorkQuery {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}) {
         nodes {
           frontmatter {
             title
