@@ -76,8 +76,8 @@ export default function Cart() {
   }
 
   const LineItem = ({ item }) => (
-    <div className="grid grid-cols-6 items-center border-b border-black py-4" style={{justifyItems: "center"}}>
-      <div className="flex col-span-4" style={{justifySelf: "start"}}>
+    <div className="grid md:grid-cols-6 items-center border-b border-black py-4 gap-4" style={{justifyItems: "center"}}>
+      <div className="flex md:col-span-4 w-full items-center justify-center md:justify-start" style={{justifySelf: "start"}}>
         <Img fluid={getImageFluidForVariant(item.variant.id)} className="p-1 border border-gray-300 h-24 w-24 mr-4"/>
         <div>
           <Link
@@ -127,7 +127,7 @@ export default function Cart() {
     <Layout>
       <SEO title="Cart" />
       <h1 className="text-center mx-auto my-32 text-3xl">Cart</h1>
-      <div className="min-h-screen">
+      <div className="min-h-screen mx-2">
         <div className="max-w-screen-lg mx-auto mb-12">
           {lineItems.map(item => (
             <React.Fragment key={item.id}>
@@ -135,9 +135,9 @@ export default function Cart() {
             </React.Fragment>
           ))}
         </div>
-        <h3 className="max-w-screen-lg mx-auto font-heading uppercase mb-4">Cart Summary</h3>
-        <div className="flex max-w-screen-lg mx-auto items-center justify-between w-full">
-          <div className="grid grid-cols-2 gap-4">
+        <h3 className="text-center md:text-left max-w-screen-lg mx-auto font-heading uppercase mb-4">Cart Summary</h3>
+        <div className="flex flex-col md:flex-row max-w-screen-lg mx-auto items-center justify-between w-full">
+          <div className="grid grid-cols-2 gap-4 mb-8 md:mb-0 pb-4 md:pb-0 border-b md:border-b-0 border-black">
             <span>Subtotal:</span>
             <span sx={{ marginLeft: "auto" }}>${cart.totalPrice}</span>
             <span>Shipping:</span>

@@ -15,7 +15,7 @@ export default function Work() {
             title
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 700) {
+                fluid(maxWidth: 1000, quality: 100) {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -45,7 +45,7 @@ export default function Work() {
         {data.allMarkdownRemark.nodes.map((b, i) => {
           return (
             <Link to={b.fields.slug} className="hover:opacity-75">
-              <Img fluid={b.frontmatter.featuredImage.childImageSharp.fluid} className="h-64 md:h-screen mb-4"/>
+              <Img fluid={b.frontmatter.featuredImage.childImageSharp.fluid} className="h-64 md:h-screen-75 mb-4"/>
               <h2 className="text-3xl">{b.frontmatter.title}</h2>
             </Link>
           )

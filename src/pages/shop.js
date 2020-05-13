@@ -17,7 +17,7 @@ export default function Shop() {
           images {
             localFile {
               childImageSharp {
-                fluid {
+                fluid(maxWidth: 1000, quality: 100) {
                   ...GatsbyImageSharpFluid
                 }
               }
