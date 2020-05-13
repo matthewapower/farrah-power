@@ -2,13 +2,14 @@
 import React, { useState } from "react"
 
 export default function OptionPicker({ name, options, onChange, selected }) {
-  const [active, setActive] = useState()
+  const [active, setActive] = useState(options[0])
 
   return (
     <div className="mb-4">
       <p className="font-heading uppercase mb-2">{name}</p>
       <div value={selected} className={`flex`}>
-        {options.map(option => (
+        {options.map((option, i) => {
+          return (
           <button 
             value={option} 
             key={option}
@@ -20,7 +21,7 @@ export default function OptionPicker({ name, options, onChange, selected }) {
           >
             {option}
           </button>
-        ))}
+        )})}
       </div>
     </div>
   )

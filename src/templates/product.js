@@ -5,7 +5,7 @@ import { useState, useEffect, useMemo } from "react"
 import styled from "@emotion/styled"
 import tw from "tailwind.macro"
 import Img from "gatsby-image"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { prepareVariantsWithOptions, prepareVariantsImages } from "./utilities"
 import {useAddItemToCart, useCartCount} from 'gatsby-theme-shopify-manager';
 import OptionPicker from "./components/optionPicker"
@@ -62,29 +62,31 @@ const ProductPage = ({ data: { shopifyProduct: product } }) => {
 
   function handleAddToCart() {
     addItemToCart(variant.shopifyId, 1)
-    setAddedToCartMessage("🛒 Added to your cart!")
+    setAddedToCartMessage("🛒 Added to your cart! ")
   }
 
   return (
     <Layout>
       <SEO title={product.title} />
       {addedToCartMessage ? (
-        <button
-          onClick={() => setAddedToCartMessage(null)}
+        <Link
+          to="/cart"
           className="fixed top-0 right-0 mt-16 mr-6 z-10 bg-gray-100 p-4 border border-gray-300 rounded" variant="primary"
         >
           {addedToCartMessage}
-        </button>
+          Checkout Now
+        </Link>
       ) : null}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-screen items-center">
+      <div className="max-w-screen-md mx-auto">
+        <h1 className="text-3xl md:text-5xl my-8 text-center">{product.title}</h1>
         <div className="relative">
-          <div>
-            <Img fluid={variant.image.localFile.childImageSharp.fluid} className="max-h-screen sticky" />
+          <div className="mb-12">
+            <Img fluid={variant.image.localFile.childImageSharp.fluid} imgStyle={{objectFit: "contain"}} className="max-h-screen-75" />
           </div>
           {/* {gallery} */}
         </div>
-        <div className="my-12 md:my-24 mx-4">
-          <h1 className="text-3xl md:text-5xl mb-8">{product.title}</h1>
+        <div className="my-12 md:my-0 mx-4 md:mx-auto md:max-w-md">
+          <h1 className="text-3xl md:text-5xl my-8">${variant.price}</h1>
           <div className="mb-4">
             <OptionPicker
               key="Type"
@@ -128,6 +130,7 @@ export const ProductPageQuery = graphql`
       }
       variants {
         shopifyId
+        price
         selectedOptions {
           name
           value
@@ -135,8 +138,8 @@ export const ProductPageQuery = graphql`
         image {
           localFile {
             childImageSharp {
-              fluid(maxWidth: 446) {
-                ...GatsbyImageSharpFluid_withWebp
+              fluid(maxWidth: 1000, quality: 100) {
+                ...GatsbyImageSharpFluid
               }
             }
           }

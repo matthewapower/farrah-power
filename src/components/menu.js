@@ -208,6 +208,7 @@ class Menu extends React.Component {
             <button onClick={this.toggleDrawer}>Work</button> 
             <MenuBlogList collapsed={dropDownState} />
           </Item>
+          <Item><Link to="/shop">Print Shop</Link></Item>
           <Item><Link to="/about">About</Link></Item>
           <Item><Link to="/contact">Contact</Link></Item>
           <Item>
