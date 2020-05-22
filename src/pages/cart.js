@@ -115,8 +115,8 @@ export default function Cart() {
     <Layout>
       <SEO title="Cart" />
       <div className="min-h-screen flex flex-col items-center">
-        <h1 className="text-center mx-auto my-32 text-3xl md:text-5xl">Cart</h1>
-        <p className="text-center text-3xl mb-12">Your shopping cart is empty.</p>
+        <h1 className="text-center mx-auto my-8 md:my-32 text-3xl md:text-5xl">Cart</h1>
+        <p className="text-center text-3xl mb-12 mx-4">Your shopping cart is empty.</p>
         <Link to="/shop" className="text-center underline">Shop for Prints</Link>
       </div>
     </Layout>
@@ -127,8 +127,8 @@ export default function Cart() {
   ) : (
     <Layout>
       <SEO title="Cart" />
-      <h1 className="text-center mx-auto my-32 text-3xl md:text-5xl">Cart</h1>
-      <div className="min-h-screen mx-2">
+      <h1 className="text-center mx-auto my-8 md:my-32 text-3xl md:text-5xl">Cart</h1>
+      <div className="min-h-screen mx-2 mb-4">
         <div className="max-w-screen-lg mx-auto mb-12">
           {lineItems.map(item => (
             <React.Fragment key={item.id}>
