@@ -18,7 +18,7 @@ export default function Layout({ children, contain }) {
       {cartCount ? (
         <Link
           to="/cart"
-          className="absolute md:fixed top-0 right-0 p-2 md:p-4 mt-16 md:mt-20 bg-white text-black rounded-l-lg z-50 border border-black border-r-0 shadow-md"
+          className="fixed top-0 right-0 p-2 md:p-4 mt-16 md:mt-20 bg-white text-black rounded-l-lg z-50 border border-black border-r-0 shadow-md"
         >
           <div className="flex items-center justify-center">
             <span className="border border-black bg-white h-6 w-6 rounded-full block mr-2 text-center">{cartCount}</span>
