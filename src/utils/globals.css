@@ -9,6 +9,10 @@
     height: 75vh;
   }
 
+  .h-screen-50 {
+    height: 50vh;
+  }
+
   .max-h-screen-75 {
     max-height: 75vh;
   }

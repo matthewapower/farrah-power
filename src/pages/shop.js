@@ -37,15 +37,30 @@ export default function Shop() {
   return (
     <Layout message="Photos Worth Keeping*">
       <SEO title="Home" />
-      <header className="flex md:items-end md:justify-end px-4 md:mt-32 mb-12">
+      <header className="flex md:items-end md:justify-end px-4 md:mt-40 mb-12">
         <h1 className="text-6xl">Shop</h1>
       </header>
-      <section className="px-4 grid md:grid-cols-2 gap-8 border-b border-black pb-12">
+      <section className="px-4 grid md:grid-cols-2 gap-12 border-b border-black pb-12">
         {data.allShopifyProduct.nodes.map((b, i) => {
           return (
-            <Link to={`/product/${b.handle}`} className="hover:opacity-75">
-              <Img fluid={b.images[0].localFile.childImageSharp.fluid} className="h-64 md:h-screen-75 mb-4"/>
-              <h2 className="text-3xl">{b.title}</h2>
+            <Link to={`/product/${b.handle}`} className="hover:opacity-75 relative bg-tan rounded-lg h-screen-50 md:h-screen-75">
+              <h2 className="text-xl md:text-3xl text-center mx-4 mt-4 md:mt-12 font-display">{b.title}</h2>
+              <Img 
+                fluid={b.images[0].localFile.childImageSharp.fluid} 
+                imgStyle={{
+                  objectFit: "contain",
+                  width: "auto",
+                  height: "auto",
+                  top: "50%",
+                  left: "50%",
+                  transform: 'translate(-50%, -50%)',
+                  maxHeight: "100%",
+                  boxShadow: "rgba(0, 0,0, 0.15) 10px 2px 40px"
+                }} 
+                placeholderStyle={{display: "none"}}
+                style={{position: 'absolute', overflow: 'visible'}} 
+                className="inset-0 m-8 mt-12 md:m-24"
+              />
             </Link>
           )
         })}

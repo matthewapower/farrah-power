@@ -7,7 +7,7 @@ import tw from "tailwind.macro"
 import Img from "gatsby-image"
 import { graphql, Link } from "gatsby"
 import { prepareVariantsWithOptions, prepareVariantsImages } from "./utilities"
-import {useAddItemToCart, useCartCount} from 'gatsby-theme-shopify-manager';
+import {useAddItemToCart} from 'gatsby-theme-shopify-manager';
 import OptionPicker from "./components/optionPicker"
 
 const DescWrapper = styled.div`
@@ -62,26 +62,30 @@ const ProductPage = ({ data: { shopifyProduct: product } }) => {
 
   function handleAddToCart() {
     addItemToCart(variant.shopifyId, 1)
-    setAddedToCartMessage("🛒 Added to your cart! ")
   }
 
   return (
     <Layout>
       <SEO title={product.title} />
-      {addedToCartMessage ? (
-        <Link
-          to="/cart"
-          className="fixed top-0 right-0 mt-16 mr-6 z-10 bg-gray-100 p-4 border border-gray-300 rounded" variant="primary"
-        >
-          {addedToCartMessage}
-          Checkout Now
-        </Link>
-      ) : null}
       <div className="max-w-screen-md mx-auto">
         <h1 className="text-3xl md:text-5xl my-8 text-center">{product.title}</h1>
         <div className="relative">
           <div className="mb-12">
-            <Img fluid={variant.image.localFile.childImageSharp.fluid} imgStyle={{objectFit: "contain"}} className="max-h-screen-75" />
+            <Img 
+              fluid={variant.image.localFile.childImageSharp.fluid} 
+              imgStyle={{
+                  objectFit: "contain",
+                  width: "auto",
+                  height: "auto",
+                  top: "50%",
+                  left: "50%",
+                  transform: 'translate(-50%, -50%)',
+                  maxHeight: "100%",
+                  boxShadow: "rgba(0, 0,0, 0.15) 10px 2px 40px"
+                }} 
+                style={{ overflow: 'visible'}} 
+              className="max-h-screen-75"
+            />
           </div>
           {/* {gallery} */}
         </div>
@@ -104,8 +108,8 @@ const ProductPage = ({ data: { shopifyProduct: product } }) => {
             />
           </div>
           <button
-            className="inline-block font-heading uppercase border border-black px-4 py-2 rounded-lg text-lg hover:bg-gray-lightest mb-8"
-            onClick={handleAddToCart}
+            className="inline-block font-heading uppercase border border-black px-4 py-2 rounded-lg text-lg hover:bg-gray-lightest mb-8 relative z-20"
+            onClick={() => handleAddToCart()}
           >
             Add to Cart
           </button>
