@@ -5,7 +5,7 @@ import { useState, useEffect, useMemo } from "react"
 import styled from "@emotion/styled"
 import tw from "tailwind.macro"
 import Img from "gatsby-image"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { prepareVariantsWithOptions, prepareVariantsImages } from "./utilities"
 import {useAddItemToCart} from 'gatsby-theme-shopify-manager';
 import OptionPicker from "./components/optionPicker"
@@ -39,7 +39,6 @@ const ProductPage = ({ data: { shopifyProduct: product } }) => {
   const [variant, setVariant] = useState(variants[0])
   const [type, setType] = useState(variant.type)
   const [size, setSize] = useState(variant.size)
-  const [addedToCartMessage, setAddedToCartMessage] = useState(null)
 
   useEffect(() => {
     const newVariant = variants.find(variant => {

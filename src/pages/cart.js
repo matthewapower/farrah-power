@@ -6,7 +6,6 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import {
   useCart,
   useCartItems,
-  useAddItemToCart,
   useRemoveItemFromCart,
   useCheckoutUrl,
 } from "gatsby-theme-shopify-manager"
@@ -46,7 +45,8 @@ export default function Cart() {
   const cart = useCart()
   const removeFromCart = useRemoveItemFromCart()
   const checkout = useCheckoutUrl()
-  const addItemToCart = useAddItemToCart()
+
+  console.log(cart)
 
   const betterProductHandles = products.map(({ handle, variants }) => {
     const newVariants = variants.map(variant => variant.shopifyId)
@@ -140,13 +140,7 @@ export default function Cart() {
         <div className="flex flex-col md:flex-row max-w-screen-lg mx-auto items-center justify-between w-full">
           <div className="grid grid-cols-2 gap-4 mb-8 md:mb-0 pb-4 md:pb-0 border-b md:border-b-0 border-black">
             <span>Subtotal:</span>
-            <span sx={{ marginLeft: "auto" }}>${cart.totalPrice}</span>
-            <span>Shipping:</span>
-            <span sx={{ marginLeft: "auto" }}> - </span>
-            <span variant="bold">Estimated Total:</span>
-            <span variant="bold" sx={{ marginLeft: "auto" }}>
-              ${cart.totalPrice}
-            </span>
+            <span>${cart.subtotalPrice}</span>
           </div>
           <a className="font-heading text-white bg-black px-4 py-2 rounded hover:opacity-50" href={checkout} target="_blank" rel="noopener noreferrer">
             Complete My Order

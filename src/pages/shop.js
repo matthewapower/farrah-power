@@ -10,14 +10,14 @@ import BtnPrimary from "../components/BtnPrimary"
 export default function Shop() {
   const data = useStaticQuery(graphql`
     query ShopQuery {
-      allShopifyProduct(sort: {fields: title, order: ASC}) {
-        nodes {
+      shopifyCollection(title: {eq: "Home page"}) {
+        products {
           title
           handle
           images {
             localFile {
               childImageSharp {
-                fluid(maxWidth: 1000, quality: 100) {
+                fluid {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -41,7 +41,7 @@ export default function Shop() {
         <h1 className="text-6xl">Shop</h1>
       </header>
       <section className="px-4 grid md:grid-cols-2 gap-12 border-b border-black pb-12">
-        {data.allShopifyProduct.nodes.map((b, i) => {
+        {data.shopifyCollection.products.map((b, i) => {
           return (
             <Link to={`/product/${b.handle}`} className="hover:opacity-75 relative bg-tan rounded-lg h-screen-50 md:h-screen-75">
               <h2 className="text-xl md:text-3xl text-center mx-4 mt-4 md:mt-12 font-display">{b.title}</h2>
