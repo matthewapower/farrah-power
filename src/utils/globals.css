@@ -17,4 +17,7 @@
     max-height: 75vh;
   }
 }
-  
+
+html {
+  scroll-behavior: smooth;
+}
