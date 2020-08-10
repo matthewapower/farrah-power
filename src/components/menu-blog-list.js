@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link, useStaticQuery, graphql } from "gatsby"
+import React, {useState} from 'react'
+import { Link } from "gatsby"
 import styled from "styled-components"
 
 const SubList = styled.ul`
@@ -25,33 +25,13 @@ const SubLink = styled.li`
 `
 
 export default function MenuBlogList(props) {
-  const data = useStaticQuery(graphql`
-    query MenuLinkQuery {
-      allMarkdownRemark(sort: {fields: frontmatter___date, order: DESC}) {
-        edges {
-          node {
-            frontmatter {
-              title
-            }
-            fields {
-              slug
-            }
-            id
-          }
-        }
-      }
-    }
-  `)
+  
   return (
+    const [dropDownState, setDropDownState] = useState(null)
     <SubList collapsed={props.collapsed}>
       <SubLink>
         <Link to="/work">View All</Link>
       </SubLink>
-      {data.allMarkdownRemark.edges.map(({ node }) => (
-        <SubLink key={node.id}>
-          <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-        </SubLink>
-      ))}
     </SubList>
   )
 }
