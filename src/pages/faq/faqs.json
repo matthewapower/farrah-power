@@ -1,0 +1,36 @@
+{
+  "questions": [
+    {
+      "question": "Are you available to travel for weddings?",
+      "answer": "Absolutely! Seeing the world and having the opportunity to document such special memories combines both my love for travel as well as photography. Contact me for a custom quote for your destination wedding."
+    },
+    {
+      "question": "How do I book you?",
+      "answer": "Once you choose a collection alongside any add ons, I will send over a contract. A signed contract and 50% retainer will reserve your wedding date. (This includes any travel cost, if applicable.) The remaining balance will be due 30 days prior to your wedding."
+    },
+    {
+      "question": "Do you offer albums?",
+      "answer": "I am passionate about offering beautifully designed, museum quality albums to you! There is nothing like reliving the day through an album vs letting the images live on a screen. Albums added on at the time of booking are discounted 10%. Find out more information about albums here: <a href='/albums' class='underline'>Wedding Albums</a>"
+    },
+    {
+      "question": "How long does it take for my photos to be delivered?",
+      "answer": "Your wedding photos will be delivered to your inbox no later than six weeks after your wedding date. Portraits will be delivered no later than two weeks after the session date."
+    },
+    {
+      "question": "Do you have insurance?",
+      "answer": "Yes, let me know if your venue requires proof of insurance and I’d be happy to send it over."
+    },
+    {
+      "question": "How many photos can we expect from our wedding?",
+      "answer": "You can expect anywhere from 50-100 images per hour. This all depends on the number of guests, adding on a second photographer, etc. I am happy to send over some full wedding galleries for your reference."
+    },
+    {
+      "question": "Do you take formal family portraits?",
+      "answer": "Yes, yes and yes! As I shoot the majority of the day in a photo-journalistic approach, family portraits are important for every wedding. As the day approaches I will ask you to send over a list of family members in order to make the family portraits go smoothly. These typically take place post ceremony however, I recommend taking as many as you can pre-ceremony so you can enjoy the moment right after saying “I do!”"
+    },
+    {
+      "question": "Do we need to add on a second photographer?",
+      "answer": "I shoot most weddings solo however if your guest count is over 150, when logistically It’d be impossible to have coverage in two places at once, or when you simply want extra coverage I would recommend adding on a second photographer."
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import items from "./faqs"
+import items from "./faqs.json"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
@@ -17,7 +17,7 @@ export default function FaqPage(props) {
             Frequently Asked Questions
           </h1>
           <div className="max-w-lg mx-auto">
-            {items.map((it, i) => (
+            {items.questions.map((it, i) => (
               <Dropdown question={it.question} answer={it.answer} />
             ))}
           </div>
