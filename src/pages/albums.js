@@ -11,7 +11,7 @@ import tw from "tailwind.macro"
 const ImageFeature = styled.div`
   min-height: 50vh;
   background-size: cover;
-  background-position: center center;
+  background-position: center top;
   ${tw`w-full mb-20`}
 `
 

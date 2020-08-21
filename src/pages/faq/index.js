@@ -10,7 +10,7 @@ import styled from "styled-components"
 export default function FaqPage(props) {
   return (
     <Layout location={props.location}>
-      <SEO title="Thank You" />
+      <SEO title="Frequently Asked Questions" />
       <section>
         <div className="container mx-auto py-20 px-4">
           <h1 className="font-display-serif text-3xl md:text-5xl mb-20 text-center">
