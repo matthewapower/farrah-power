@@ -167,6 +167,7 @@ export default function Menu(props) {
   const infoLinks = [
     { name: "About", to: "/about" },
     { name: "Albums", to: "/albums" },
+    { name: "FAQ", to: "/faq" },
     { name: "Contact", to: "/contact" },
   ]
   const workLinks = [{ name: "View All", to: "/work" }]

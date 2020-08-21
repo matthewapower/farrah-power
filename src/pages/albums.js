@@ -9,7 +9,7 @@ import styled from "@emotion/styled"
 import tw from "tailwind.macro"
 
 const ImageFeature = styled.div`
-  min-height: 40vh;
+  min-height: 50vh;
   background-size: cover;
   background-position: center center;
   ${tw`w-full mb-20`}
@@ -81,7 +81,7 @@ export default function AlbumPage() {
   return (
     <Layout>
       <SEO title="Albums" />
-      <section className="flex flex-col items-center justify-center text-center py-12 w-full pt-64">
+      <section className="flex flex-col items-center justify-center text-center py-12 w-full md:pt-64">
         <div className="px-4">
           <h2 className="font-heading uppercase text-3xl mb-4 tracking-wide">
             Heirloom Albums
