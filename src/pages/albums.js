@@ -5,6 +5,15 @@ import SEO from "../components/seo"
 import Hero from "../components/Hero"
 import BtnPrimary from "../components/BtnPrimary"
 import CtaBanner from "../components/CtaBanner"
+import styled from "@emotion/styled"
+import tw from "tailwind.macro"
+
+const ImageFeature = styled.div`
+  min-height: 40vh;
+  background-size: cover;
+  background-position: center center;
+  ${tw`w-full mb-20`}
+`
 
 export default function AlbumPage() {
   const steps = [
@@ -72,42 +81,46 @@ export default function AlbumPage() {
   return (
     <Layout>
       <SEO title="Albums" />
-      <Hero
-        title={`Albums`}
-        image="https://res.cloudinary.com/ds9ng4srx/image/upload/v1596675484/Farrah/album_fafza2.png"
-      />
-      <section className="flex flex-col items-center justify-center text-center py-12 px-4 w-full">
-        <h2 className="font-heading uppercase text-xl mb-4">Heirloom Albums</h2>
-        <h3 className="font-display-serif text-3xl md:text-5xl mb-4">
-          The process from beginning to the final product
-        </h3>
-        <p className="max-w-lg mx-auto mb-32">
-          Each album is designed to uniquely tell each wedding day story. I
-          design the book with you. I want you to have control over the colors,
-          materials, and photo selections to create something truly special.
-          There is nothing like seeing the images come to life on paper to
-          relive the day and share with others.
-        </p>
-        <ul className="max-w-xl md:text-left">
-          {steps.map((s, i) => {
-            return (
-              <li key={i} className="grid md:grid-cols-2 mb-12">
-                <h2 className="text-6xl">Step {i + 1}</h2>
-                <div>
-                  <h3 className="text-4xl">{s.title}</h3>
-                  <p>{s.description}</p>
-                </div>
-              </li>
-            )
-          })}
-        </ul>
+      <section className="flex flex-col items-center justify-center text-center py-12 w-full pt-64">
+        <div className="px-4">
+          <h2 className="font-heading uppercase text-3xl mb-4 tracking-wide">
+            Heirloom Albums
+          </h2>
+          <h3 className="font-display-serif text-3xl md:text-5xl mb-4">
+            The process from beginning to the final product
+          </h3>
+          <p className="max-w-lg mx-auto mb-32">
+            Each album is designed to uniquely tell each wedding day story. I
+            design the book with you. I want you to have control over the
+            colors, materials, and photo selections to create something truly
+            special. There is nothing like seeing the images come to life on
+            paper to relive the day and share with others.
+          </p>
+        </div>
+        <ImageFeature
+          style={{
+            backgroundImage: `url(https://res.cloudinary.com/ds9ng4srx/image/upload/v1598026377/Farrah/album_bg_m4eiih.png)`,
+          }}
+        />
+        <div className="px-4">
+          <ul className="max-w-md md:text-left">
+            {steps.map((s, i) => {
+              return (
+                <li key={i} className="grid md:grid-cols-4 mb-12">
+                  <h2 className="text-6xl">{i + 1}</h2>
+                  <div className="md:col-span-3">
+                    <h3 className="text-4xl">{s.title}</h3>
+                    <p>{s.description}</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
       </section>
       {collections.map((c, i) => {
         return (
-          <section
-            key={i}
-            className="flex flex-col md:flex-row py-12 px-4 w-full"
-          >
+          <section key={i} className="flex flex-col md:flex-row py-12 w-full">
             <div
               className="w-full md:w-1/3 h-64 md:h-auto bg-cover bg-center"
               style={{ backgroundImage: `url(${c.image})` }}
@@ -144,13 +157,24 @@ export default function AlbumPage() {
       <span className="bg-black h-px w-full block" />
       <section className="text-center bg-tan py-24 px-4">
         <h2 className="font-heading uppercase text-xl mb-4">What’s next?</h2>
-        <h3 className="font-display-serif text-3xl md:text-5xl mb-4">
-          Start Creating Your Album
-        </h3>
         <p className="max-w-sm mx-auto mb-8">
-          Click the link above to start the process and let's create something
-          that you will love and enjoy for years to come!
+          Start the process and let's create something that you will love and
+          enjoy for years to come!
         </p>
+        <BtnPrimary
+          to="https://tave.com/farrah-power/questionnaire/d03423f0e9dba6a01d3e2ebb"
+          external
+          className="mx-4"
+        >
+          Standard Album
+        </BtnPrimary>
+        <BtnPrimary
+          to="https://tave.com/farrah-power/questionnaire/dd3f9b69bf3ca01dd91be733"
+          external
+          className="mx-4"
+        >
+          Fine Art Album
+        </BtnPrimary>
       </section>
     </Layout>
   )
