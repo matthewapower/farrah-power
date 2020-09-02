@@ -78,10 +78,19 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-styled-components`
+      resolve: `gatsby-plugin-styled-components`,
     },
     {
       resolve: `gatsby-theme-tailwindcss`,
+    },
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        host: process.env.CONTENTFUL_HOST,
+      },
     },
     {
       resolve: `gatsby-theme-shopify-manager`,
@@ -91,12 +100,12 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: "gatsby-plugin-web-font-loader",
       options: {
         typekit: {
-          id: 'tma7ecu'
-        }
-      }
+          id: "tma7ecu",
+        },
+      },
     },
   ],
 }

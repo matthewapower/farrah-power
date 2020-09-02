@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link, graphql } from "gatsby"
+import { css } from "@emotion/core"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -65,8 +66,9 @@ const NavControls = styled.ul`
 `
 
 export default function BlogPostTemplate(props) {
-  const post = props.data.markdownRemark
+  const post = props.data.contentfulWorkEntry
   const siteTitle = props.data.site.siteMetadata.title
+  let narrativeId = post.narrativeCode.narrativeCode
   const { previous, next } = props.pageContext
   const [scrolled, setScrolled] = useState(false)
   const handleScroll = () => {
@@ -85,29 +87,65 @@ export default function BlogPostTemplate(props) {
     }
   }, [scrolled, handleScroll])
 
+  console.log(narrativeId)
+  const searchTerm = "data-post-id='"
+  narrativeId = narrativeId.slice(
+    narrativeId.search(searchTerm) + searchTerm.length
+  )
+  console.log(narrativeId)
+  narrativeId = narrativeId.slice(0, narrativeId.search("'"))
+  console.log(narrativeId)
+
   return (
     <Layout location={props.location} title={siteTitle}>
-      <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
-      />
-      <Title>{post.frontmatter.title}</Title>
+      <SEO title={post.title} />
+      <Title>{post.title}</Title>
 
       <Container>
-        <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
-        <div dangerouslySetInnerHTML={{ __html: post.frontmatter.embed }} />
+        {post.content ? (
+          <PostContent
+            dangerouslySetInnerHTML={{
+              __html: post.content.childMarkdownRemark.html,
+            }}
+          />
+        ) : (
+          ""
+        )}
+        <div>
+          <div
+            className="nar-root"
+            data-post-id={narrativeId}
+            css={css`
+              p {
+                text-align: center;
+                opacity: 0;
+                animation: nara 0s ease-in 2s forwards;
+              }
+              @keyframes nara {
+                to {
+                  opacity: 1;
+                }
+              }
+            `}
+          >
+            <img
+              style={{ width: "100%" }}
+              src={`https://content1.getnarrativeapp.com/static/${narrativeId}/featured.jpg`}
+            />
+          </div>
+        </div>
         <NavControls>
           <li>
             {previous && (
-              <ContinueLink to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
+              <ContinueLink to={`/${previous.slug}`} rel="prev">
+                ← {previous.title}
               </ContinueLink>
             )}
           </li>
           <li>
             {next && (
-              <ContinueLink to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
+              <ContinueLink to={`/${next.slug}`} rel="next">
+                {next.title} →
               </ContinueLink>
             )}
           </li>
@@ -118,7 +156,7 @@ export default function BlogPostTemplate(props) {
           scrolled ? "transform translate-x-0" : "transform translate-x-64"
         }`}
         onClick={() => {
-          console.log(window.scrollTo(0, 0))
+          window.scrollTo(0, 0)
         }}
       >
         <svg viewBox="0 0 50 50" style={{ maxWidth: "20px" }} className="mb-2">
@@ -145,7 +183,7 @@ export default function BlogPostTemplate(props) {
       <Helmet>
         <script
           type="text/javascript"
-          src={post.frontmatter.embedScript}
+          src={`https://service.getnarrativeapp.com/core/embed/r/${narrativeId}.js`}
         ></script>
       </Helmet>
       <CtaFooter />
@@ -161,15 +199,15 @@ export const pageQuery = graphql`
         author
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        description
-        embed
-        embedScript
+    contentfulWorkEntry(slug: { eq: $slug }) {
+      title
+      content {
+        childMarkdownRemark {
+          html
+        }
+      }
+      narrativeCode {
+        narrativeCode
       }
     }
   }

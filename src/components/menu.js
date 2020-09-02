@@ -151,15 +151,10 @@ export default function Menu(props) {
   const [activeSub, setActiveSub] = useState(false)
   const blogs = useStaticQuery(graphql`
     query MenuLinkQuery {
-      allMarkdownRemark(sort: { fields: frontmatter___date, order: DESC }) {
+      allContentfulWorkEntry(sort: { fields: publishDate, order: DESC }) {
         nodes {
-          frontmatter {
-            title
-          }
-          fields {
-            slug
-          }
-          id
+          slug
+          title
         }
       }
     }
@@ -172,8 +167,8 @@ export default function Menu(props) {
   ]
   const workLinks = [{ name: "View All", to: "/work" }]
 
-  blogs.allMarkdownRemark.nodes.map((b, i) => {
-    return workLinks.push({ name: b.frontmatter.title, to: b.fields.slug })
+  blogs.allContentfulWorkEntry.nodes.map((b, i) => {
+    return workLinks.push({ name: b.title, to: `/work/${b.slug}` })
   })
 
   return (
