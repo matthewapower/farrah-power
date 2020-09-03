@@ -9,8 +9,8 @@ import BtnPrimary from "../components/BtnPrimary"
 export default function Work() {
   const data = useStaticQuery(graphql`
     query WorkQuery {
-      allContentfulWorkEntry(sort: { fields: publishDate, order: DESC }) {
-        nodes {
+      contentfulSettings(id: { eq: "b8d8f736-cc45-55eb-bdf0-5fdeadcff30c" }) {
+        workList {
           slug
           title
           featuredImage {
@@ -36,7 +36,7 @@ export default function Work() {
         <h1 className="text-6xl">Work</h1>
       </header>
       <section className="px-4 grid md:grid-cols-2 gap-8 border-b border-black pb-12">
-        {data.allContentfulWorkEntry.nodes.map((b, i) => {
+        {data.contentfulSettings.workList.map((b, i) => {
           return (
             <Link to={`/${b.slug}`} className="hover:opacity-75">
               <Img

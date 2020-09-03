@@ -8,8 +8,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const result = await graphql(
     `
       {
-        allContentfulWorkEntry(sort: { fields: publishDate, order: DESC }) {
-          nodes {
+        contentfulSettings(id: { eq: "b8d8f736-cc45-55eb-bdf0-5fdeadcff30c" }) {
+          workList {
             slug
             title
           }
@@ -29,7 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   // Create blog posts pages.
-  const posts = result.data.allContentfulWorkEntry.nodes
+  const posts = result.data.contentfulSettings.workList
 
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1]

@@ -1,6 +1,5 @@
 import React from "react"
 import { graphql } from "gatsby"
-import items from "./faqs.json"
 
 import Layout from "../../components/layout"
 import SEO from "../../components/seo"
@@ -17,8 +16,11 @@ export default function FaqPage(props) {
             Frequently Asked Questions
           </h1>
           <div className="max-w-lg mx-auto">
-            {items.questions.map((it, i) => (
-              <Dropdown question={it.question} answer={it.answer} />
+            {props.data.contentfulSettings.faQs.map((it, i) => (
+              <Dropdown
+                question={it.question.question}
+                answer={it.answer.childMarkdownRemark.html}
+              />
             ))}
           </div>
         </div>
@@ -26,3 +28,20 @@ export default function FaqPage(props) {
     </Layout>
   )
 }
+
+export const query = graphql`
+  {
+    contentfulSettings(id: { eq: "b8d8f736-cc45-55eb-bdf0-5fdeadcff30c" }) {
+      faQs {
+        question {
+          question
+        }
+        answer {
+          childMarkdownRemark {
+            html
+          }
+        }
+      }
+    }
+  }
+`
