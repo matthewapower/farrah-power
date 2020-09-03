@@ -168,7 +168,7 @@ export default function Menu(props) {
   const workLinks = [{ name: "View All", to: "/work" }]
 
   blogs.allContentfulWorkEntry.nodes.map((b, i) => {
-    return workLinks.push({ name: b.title, to: `/work/${b.slug}` })
+    return workLinks.push({ name: b.title, to: `/${b.slug}` })
   })
 
   return (
