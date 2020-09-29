@@ -89,13 +89,14 @@ export default function AlbumPage() {
           <h3 className="font-display-serif text-3xl md:text-5xl mb-4">
             The process from beginning to the final product
           </h3>
-          <p className="max-w-lg mx-auto mb-32">
+          <p className="max-w-lg mx-auto mb-6">
             Each album is designed to uniquely tell each wedding day story. I
             design the book with you. I want you to have control over the
             colors, materials, and photo selections to create something truly
             special. There is nothing like seeing the images come to life on
             paper to relive the day and share with others.
           </p>
+          <p className="mb-32">10% discount on albums at the time of booking</p>
         </div>
         <ImageFeature
           style={{
