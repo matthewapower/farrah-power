@@ -13,11 +13,11 @@ export default function AboutPage() {
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585608874/Farrah/0436JuliaJackson_418_of_840_z12xaq.jpg',
       title: 'Collection One',
-      description: 'This collection is great for someone who wants to keep it simple with enough time to cover just the highlights.',
-      price: '$3,000',
+      description: 'This is perfect for documenting the highlights of the day while creating space for capturing natural moments.',
+      price: '$4,000',
       features: [
-        'Six Hours of Photography',
-        'High resolution image files with print rights',
+        '8-hour coverage',
+        'High-resolution files with print rights',
         'Online Gallery with Print Ordering'
       ],
       cta: 'https://calendly.com/hello-farrah/discovery-call'
@@ -25,25 +25,28 @@ export default function AboutPage() {
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585608610/Farrah/Barrentine1005-web_blawml.jpg',
       title: 'Collection Two',
-      description: 'This is the most popular collection. This is perfect for documenting the highlights of the day while creating space for capturing natural moments.',
-      price: '$4,000',
+      description: 'This is the most popular collection that includes a beautifully designed heirloom album that you will enjoy for years to come.',
+      price: '$5,350',
       features: [
-        'Eight Hours of Photography',
-        'High resolution image files with print rights',
-        'Online Gallery with Print Ordering'
+        '8-hour coverage',
+        'High-resolution files with print rights',
+        'Online Gallery with Print Ordering',
+        '10 x 10 Fine-Art Album (10% off at the time of booking)'
       ],
       cta: 'https://calendly.com/hello-farrah/discovery-call'
     },
     {
       image: 'https://res.cloudinary.com/ds9ng4srx/image/upload/v1585608957/Farrah/Fleischer_286_of_798_Fleischer_286_of_798_fnbzgw.jpg',
       title: 'Collection Three',
-      description: 'All day coverage from getting ready up until the grand exit. This collection is perfect if you want everything documented and is ideal if you & your partner are getting ready at two separate locations.',
-      price: '$5,700',
+      description: 'All day coverage from getting ready up until the grand exit. This collection is perfect if you want everything documented along with 35mm film and a beautifully designed heirloom album.',
+      price: '$7,450',
       features: [
-        'Ten Hours of Photography',
-        'High resolution image files with print rights',
+        '10-hour coverage',
+        'High-resolution files with print rights',
         'Online Gallery with Print Ordering',
-        'Includes a second photographer'
+        '10 x 10 Fine-Art Album (10% off at the time of booking)',
+        'Second Photographer',
+        '35mm Film'
       ],
       cta: 'https://calendly.com/hello-farrah/discovery-call'
     }
@@ -53,7 +56,7 @@ export default function AboutPage() {
     return (
       <Layout>
         <SEO title="Collections" />
-        <Hero title={`${new Date().getFullYear()} Wedding Collections`} image="https://res.cloudinary.com/ds9ng4srx/image/upload/v1585512052/Farrah/bg-2_1_tmx4n2.png"/>
+        <Hero title={`2021 - 2022 Wedding Collections`} image="https://res.cloudinary.com/ds9ng4srx/image/upload/v1585512052/Farrah/bg-2_1_tmx4n2.png"/>
         {collections.map((c,i) => {
           return (
             <section key={i} className="flex flex-col md:flex-row py-12 px-4 w-full">

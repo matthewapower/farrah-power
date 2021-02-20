@@ -121,7 +121,7 @@ export default function AlbumPage() {
       </section>
       {collections.map((c, i) => {
         return (
-          <section key={i} className="flex flex-col md:flex-row py-12 w-full">
+          <section key={i} className="flex flex-col md:flex-row py-12 w-full px-2">
             <div
               className="w-full md:w-1/3 h-64 md:h-auto bg-cover bg-center"
               style={{ backgroundImage: `url(${c.image})` }}
@@ -131,7 +131,7 @@ export default function AlbumPage() {
                 <h2 className="font-display-serif text-3xl md:text-5xl mb-4">
                   {c.title}
                 </h2>
-                <p className="font-display-sans text-3xl mb-4">{c.price}</p>
+                {/*<p className="font-display-sans text-3xl mb-4">{c.price}</p>*/}
                 <p className="mb-8">{c.description}</p>
               </div>
               <div className="md:w-1/2">
@@ -165,7 +165,7 @@ export default function AlbumPage() {
         <BtnPrimary
           to="https://tave.com/farrah-power/questionnaire/d03423f0e9dba6a01d3e2ebb"
           external
-          className="mx-4"
+          className="mx-4 mb-4"
         >
           Standard Album
         </BtnPrimary>
