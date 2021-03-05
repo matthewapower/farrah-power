@@ -137,13 +137,13 @@ export default function Index(props) {
                 }}
               />
               <Card to={"/" + slide.workEntry.slug}>
-                <TopImage
+                {slide.topImage ? <TopImage
                   fluid={slide.topImage.fluid}
                   objectFit="cover"
                   objectPosition="50% 50%"
                   backgroundColor="#F6F1EC"
                   alt={slide.workEntry.title}
-                />
+                /> : ''}
                 <h2 className="absolute inset-0 text-center flex items-center justify-center text-3xl md:text-6xl md:-mx-40">
                   {slide.workEntry.title}
                 </h2>
